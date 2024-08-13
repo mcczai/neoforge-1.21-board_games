@@ -9,8 +9,8 @@ public class CardIndexPOJO {
     @SerializedName("name")
     private String name;
 
-    @SerializedName("display")
-    private ResourceLocation display;
+    @SerializedName("data")
+    private ResourceLocation data;
 
     @SerializedName("stack_size")
     private int stackSize;
@@ -19,12 +19,12 @@ public class CardIndexPOJO {
     @Nullable
     private String tooltip;
 
+    @SerializedName("type")
+    @Nullable
+    private String type;
+
     public String getName() {
         return name;
-    }
-
-    public ResourceLocation getDisplay() {
-        return display;
     }
 
     public int getStackSize() {
@@ -34,5 +34,13 @@ public class CardIndexPOJO {
     @Nullable
     public String getTooltip() {
         return tooltip;
+    }
+
+    public ResourceLocation getData() {
+        return data;
+    }
+
+    public String getType() {
+        return type;
     }
 }

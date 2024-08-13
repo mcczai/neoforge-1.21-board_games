@@ -14,16 +14,21 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Enumeration;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-public class CardPackLoader {
+public class CommonCardPackLoader {
     public static final Gson GSON = new GsonBuilder()
             .registerTypeAdapter(ResourceLocation.class,new ResourceLocation.Serializer())
             .create();
-
+    /**
+     * 这里定义文件目录
+     */
     public static final Path FOLDER = Paths.get("config", CardduelMod.MODID,"custom");
-    public static final Map<ResourceLocation,CardIndex> CARD_INDEX = Maps.newHashMap();
+
+    public static final Map<ResourceLocation, CardIndex> CARD_INDEX = Maps.newHashMap();
 
     /**
      *创建目录
@@ -88,5 +93,13 @@ public class CardPackLoader {
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
+    }
+
+    public static Optional<CardIndex> getCardIndex(ResourceLocation registryName){
+        return Optional.ofNullable(CARD_INDEX.get(registryName));
+    }
+
+    public static Set<Map.Entry<ResourceLocation,CardIndex>> getAllGuns(){
+        return CARD_INDEX.entrySet();
     }
 }

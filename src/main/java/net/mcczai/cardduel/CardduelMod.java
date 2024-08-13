@@ -1,6 +1,7 @@
 package net.mcczai.cardduel;
 
 import net.mcczai.cardduel.init.ModBlock;
+import net.mcczai.cardduel.init.ModDataComponents;
 import net.mcczai.cardduel.init.ModItem;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -18,6 +19,7 @@ public class CardduelMod {
     public CardduelMod(IEventBus Bus, ModContainer modContainer){
         ModBlock.BLOCKS.register(Bus);
         ModItem.ITEMS.register(Bus);
+        ModDataComponents.DATA_COMPONENTS.register(Bus);
         CardduelCreativeTab.CARDDUEL_TABS.register(Bus);
     }
 }

@@ -5,7 +5,7 @@ import com.google.gson.JsonSyntaxException;
 import net.mcczai.cardduel.CardduelMod;
 import net.mcczai.cardduel.resources.CardAssetManager;
 import net.mcczai.cardduel.resources.data.CardData;
-import net.mcczai.cardduel.resources.CardPackLoader;
+import net.mcczai.cardduel.resources.CommonCardPackLoader;
 import net.mcczai.cardduel.util.PathVisitor;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.commons.io.IOUtils;
@@ -23,13 +23,13 @@ import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-
-
-
 public final class CardDataLoader {
     private static final Marker MARKER = MarkerManager.getMarker("CardDataLoader");
     public static final Pattern CARD_DATA_PATTERN = Pattern.compile("^(\\w+)/cards/data/([\\w/]+)\\.json$");
 
+    /**
+     *ZIP格式加载
+     */
     public static boolean load(ZipFile zipFile, String zipPath) {
         Matcher matcher = CARD_DATA_PATTERN.matcher(zipPath);
         if (matcher.find()) {
@@ -53,6 +53,9 @@ public final class CardDataLoader {
         return false;
     }
 
+    /**
+     * 文件夹格式加载
+     */
     public static void load(File root) {
         Path filePath = root.toPath().resolve("cards/data");
         if (Files.isDirectory(filePath)) {
@@ -75,7 +78,7 @@ public final class CardDataLoader {
     }
 
     public static void loadFromJsonString(ResourceLocation id, String json) {
-        CardData data = CardPackLoader.GSON.fromJson(json, CardData.class);
+        CardData data = CommonCardPackLoader.GSON.fromJson(json, CardData.class);
         CardAssetManager.INSTANCE.putCardData(id, data);
     }
 
