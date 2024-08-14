@@ -1,4 +1,4 @@
-package net.mcczai.cardduel.resources.data;
+package net.mcczai.cardduel.resources.pojo.data;
 
 import com.google.gson.annotations.SerializedName;
 

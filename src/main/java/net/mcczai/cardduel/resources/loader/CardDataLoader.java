@@ -1,10 +1,10 @@
-package net.mcczai.cardduel.loader;
+package net.mcczai.cardduel.resources.loader;
 
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import net.mcczai.cardduel.CardduelMod;
 import net.mcczai.cardduel.resources.CardAssetManager;
-import net.mcczai.cardduel.resources.data.CardData;
+import net.mcczai.cardduel.resources.pojo.data.CardData;
 import net.mcczai.cardduel.resources.CommonCardPackLoader;
 import net.mcczai.cardduel.util.PathVisitor;
 import net.minecraft.resources.ResourceLocation;

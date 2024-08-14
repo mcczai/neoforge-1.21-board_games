@@ -1,7 +1,7 @@
 package net.mcczai.cardduel.client.resource;
 
 import com.google.common.base.Preconditions;
-import net.mcczai.cardduel.resources.CardIndexPOJO;
+import net.mcczai.cardduel.resources.pojo.CardIndexPOJO;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.apache.commons.lang3.StringUtils;

@@ -25,7 +25,7 @@ public interface ICard {
      * @param livingEntity
      * @return 判断主手是否手持卡牌
      */
-    static boolean mainhandHoldCard(LivingEntity livingEntity)
+    static boolean mainHandHoldCard(LivingEntity livingEntity)
     {
         return livingEntity.getMainHandItem().getItem() instanceof ICard;
     }

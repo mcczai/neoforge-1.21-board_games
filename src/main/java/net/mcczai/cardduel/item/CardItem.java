@@ -1,6 +1,6 @@
 package net.mcczai.cardduel.item;
 
-import net.mcczai.cardduel.resources.data.CardDataAccessor;
+import net.mcczai.cardduel.resources.CardDataAccessor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 

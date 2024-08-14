@@ -1,4 +1,4 @@
-package net.mcczai.cardduel.resources.data;
+package net.mcczai.cardduel.resources;
 
 import net.mcczai.cardduel.CardduelMod;
 import net.minecraft.resources.ResourceLocation;

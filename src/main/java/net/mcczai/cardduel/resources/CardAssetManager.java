@@ -1,7 +1,7 @@
 package net.mcczai.cardduel.resources;
 
 import com.google.common.collect.Maps;
-import net.mcczai.cardduel.resources.data.CardData;
+import net.mcczai.cardduel.resources.pojo.data.CardData;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.Map;

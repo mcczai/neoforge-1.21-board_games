@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import static net.mcczai.cardduel.client.resource.ClientCardPackLoader.GSON;
+import static net.mcczai.cardduel.client.resource.loader.asset.ClientCardPackLoader.GSON;
 
 public class PackInfoLoader {
     private static final Marker MARKER = MarkerManager.getMarker("CreativeTabLoader");

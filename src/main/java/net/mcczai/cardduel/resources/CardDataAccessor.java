@@ -1,13 +1,10 @@
-package net.mcczai.cardduel.resources.data;
+package net.mcczai.cardduel.resources;
 
-import net.mcczai.cardduel.init.ModDataComponents;
 import net.mcczai.cardduel.item.ICard;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.Objects;
 

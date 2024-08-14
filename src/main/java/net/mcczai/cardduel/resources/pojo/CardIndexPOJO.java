@@ -1,4 +1,4 @@
-package net.mcczai.cardduel.resources;
+package net.mcczai.cardduel.resources.pojo;
 
 import com.google.gson.annotations.SerializedName;
 import net.minecraft.resources.ResourceLocation;
