@@ -22,8 +22,7 @@ public interface ICard {
 
     /**
      *
-     * @param livingEntity
-     * @return 判断主手是否手持卡牌
+     * @return boolean 判断主手是否手持卡牌
      */
     static boolean mainHandHoldCard(LivingEntity livingEntity)
     {
@@ -31,36 +30,42 @@ public interface ICard {
     }
 
     /**
-     *读取手中卡牌的血量
+     * 读取手中卡牌的血量
      */
-    int getHp(ItemStack Card);
+    int getHP(ItemStack Card);
+
+    void setHP(ItemStack Card,int amount);
     /**
      * 获得手中卡牌的消耗
      */
-    int getMp(ItemStack Card);
+    int getMP(ItemStack Card);
+
+    void setMP(ItemStack Card,int amount);
 
     /**
      *读取手中卡牌的攻击力
      */
-    int getAtk(ItemStack Card);
+    int getATK(ItemStack Card);
 
+    void setATK(ItemStack Card,int amount);
     /**
      *读取手中卡牌的类型
      */
     int getType(ItemStack Card);
+
+    void setType(ItemStack Card, int type);
 
     /**
      *读取手中卡牌的技能效果
      */
     String getSkill(ItemStack Card);
 
+    void setSkill(ItemStack Card, String skill);
+
     /**
      * 获得卡牌ID
      */
     ResourceLocation getCardId(ItemStack card);
 
-    /**
-     * 设置卡牌ID
-     */
-    void setCardId(ItemStack card,ResourceLocation cardId);
+    void setCardId(ItemStack card,@Nullable ResourceLocation cardId);
 }

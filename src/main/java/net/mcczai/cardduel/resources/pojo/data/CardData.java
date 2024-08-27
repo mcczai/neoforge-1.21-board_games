@@ -17,7 +17,7 @@ public class CardData {
     private String DESCRIPTION = null;
 
     @SerializedName("type")
-    private int TYPE = 0;
+    private String  TYPE = null;
 
     @SerializedName("skill")
     private String SKILL = null;
@@ -38,7 +38,7 @@ public class CardData {
         return DESCRIPTION;
     }
 
-    public int getTYPE(){
+    public String getTYPE(){
         return TYPE;
     }
 

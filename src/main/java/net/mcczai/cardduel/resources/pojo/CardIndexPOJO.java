@@ -6,6 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import javax.annotation.Nullable;
 
 public class CardIndexPOJO {
+
     @SerializedName("name")
     private String name;
 

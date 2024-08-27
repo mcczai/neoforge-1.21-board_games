@@ -1,10 +1,12 @@
-package net.mcczai.cardduel.client.resource.loader.asset;
+package net.mcczai.cardduel.client.resource.loader;
 
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.mcczai.cardduel.client.resource.ClientAssetManager;
 import net.mcczai.cardduel.client.resource.ClientCardIndex;
+import net.mcczai.cardduel.client.resource.loader.asset.LanguageLoader;
+import net.mcczai.cardduel.client.resource.loader.asset.PackInfoLoader;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;

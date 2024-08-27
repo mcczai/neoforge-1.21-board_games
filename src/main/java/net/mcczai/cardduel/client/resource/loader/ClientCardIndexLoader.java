@@ -1,4 +1,4 @@
-package net.mcczai.cardduel.client.resource.loader.asset;
+package net.mcczai.cardduel.client.resource.loader;
 
 
 import net.mcczai.cardduel.API.CdAPI;
@@ -10,14 +10,14 @@ import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 
 
-import static net.mcczai.cardduel.client.resource.loader.asset.ClientCardPackLoader.CARD_INDEX;
+import static net.mcczai.cardduel.client.resource.loader.ClientCardPackLoader.CARD_INDEX;
 
 
 public final class ClientCardIndexLoader {
     private static final Marker MARKER = MarkerManager.getMarker("ClientCardIndexLoader");
 
-    public static void loadAmmoIndex() {
-        CdAPI.getAllClientAmmoIndex().forEach(index -> {
+    public static void loadCardIndex() {
+        CdAPI.getAllClientCardIndex().forEach(index -> {
             ResourceLocation id = index.getKey();
             CardIndexPOJO pojo = index.getValue().getPojo();
             try {

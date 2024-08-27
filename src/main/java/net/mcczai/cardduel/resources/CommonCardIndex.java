@@ -37,7 +37,7 @@ public class CommonCardIndex {
         Preconditions.checkArgument(data.getHP() >= 1, "HP count must >= 1");
         Preconditions.checkArgument(data.getMP() >= 1, "HP count must >= 1");
         Preconditions.checkArgument(data.getDESCRIPTION() != null, "description id is empty");
-        Preconditions.checkArgument(data.getTYPE() >= 0, "type id is empty");
+        Preconditions.checkArgument(data.getTYPE() != null, "type id is empty");
         Preconditions.checkArgument(data.getSKILL() != null, "skill id is empty");
     }
 
@@ -49,6 +49,7 @@ public class CommonCardIndex {
     public String getType(){
         return type;
     }
+
     public CardIndexPOJO getPojo() {
         return pojo;
     }
