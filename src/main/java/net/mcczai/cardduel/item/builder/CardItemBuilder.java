@@ -66,7 +66,7 @@ public final class CardItemBuilder {
         String type = CdAPI.getCommonCardIndex(cardId).map(index -> index.getPojo().getType()).orElse(null);
         Preconditions.checkArgument(type != null, "Could not found card id: " + cardId);
 
-        DeferredHolder<? extends AbstractCardItem, CardItem> cardItemDeferredHolder = CardItemManager.getCardItemRegistryObject(type);
+        DeferredHolder<AbstractCardItem, CardItem> cardItemDeferredHolder = CardItemManager.getCardItemRegistryObject(type);
 
         ItemStack card = new ItemStack(cardItemDeferredHolder.get(),this.count);
         if (card.getItem() instanceof ICard iCard){

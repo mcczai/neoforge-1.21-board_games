@@ -1,7 +1,8 @@
 package net.mcczai.cardduel;
 
 import net.mcczai.cardduel.config.CommonConfig;
-import net.mcczai.cardduel.init.ModBlock;
+import net.mcczai.cardduel.init.ModBlockEntities;
+import net.mcczai.cardduel.init.ModBlocks;
 import net.mcczai.cardduel.init.ModDataComponents;
 import net.mcczai.cardduel.init.ModItem;
 import net.neoforged.bus.api.IEventBus;
@@ -22,8 +23,9 @@ public class CardduelMod {
 
         modContainer.registerConfig(ModConfig.Type.COMMON,CommonConfig.init());
 
-        ModBlock.BLOCKS.register(Bus);
+        ModBlocks.BLOCKS.register(Bus);
         ModItem.ITEMS.register(Bus);
+        ModBlockEntities.BLOCK_ENTITIES.register(Bus);
         ModDataComponents.DATA_COMPONENTS.register(Bus);
         CardduelCreativeTab.CARDDUEL_TABS.register(Bus);
     }
