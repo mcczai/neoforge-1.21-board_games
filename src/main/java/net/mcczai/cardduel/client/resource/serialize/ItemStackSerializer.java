@@ -2,7 +2,6 @@ package net.mcczai.cardduel.client.resource.serialize;
 
 import com.google.gson.*;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.common.crafting.CraftingHelper;
 
 import java.lang.reflect.Type;
 

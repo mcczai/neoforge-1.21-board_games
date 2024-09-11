@@ -1,7 +1,5 @@
 package net.mcczai.cardduel.init;
 
-import com.mojang.datafixers.DSL;
-import net.mcczai.cardduel.block.DuelTableBlock;
 import net.mcczai.cardduel.block.entity.DuelTableBlockEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;

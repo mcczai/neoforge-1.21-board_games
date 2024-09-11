@@ -6,8 +6,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
@@ -15,7 +15,6 @@ import java.nio.file.Paths;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import java.io.IOException;
 
 public class ZipPackTexture extends AbstractTexture {
     private final ResourceLocation registerId;
@@ -27,7 +26,7 @@ public class ZipPackTexture extends AbstractTexture {
     }
 
     @Override
-    public void load(ResourceManager resourceManager) throws IOException {
+    public void load(@NotNull ResourceManager resourceManager) throws IOException {
         if (!RenderSystem.isOnRenderThreadOrInit()) {
             RenderSystem.recordRenderCall(this::doLoad);
         } else {

@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "name": "pack.default_card.name",
+  "desc": "pack.default_card.desc",
+  "license": "CC BY-NC-ND 4.0",
+  "authors": [
+    "mcczai"
+  ],
+  "date": "2024-09-11"
+}

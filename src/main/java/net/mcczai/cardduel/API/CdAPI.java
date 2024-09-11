@@ -1,13 +1,12 @@
 package net.mcczai.cardduel.API;
 
 import net.mcczai.cardduel.client.resource.ClientCardIndex;
-import net.mcczai.cardduel.client.resource.loader.ClientCardPackLoader;
+import net.mcczai.cardduel.client.resource.ClientCardPackLoader;
 import net.mcczai.cardduel.resources.CommonCardIndex;
 import net.mcczai.cardduel.resources.CommonCardPackLoader;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import org.checkerframework.checker.units.qual.C;
 
 import java.util.Map;
 import java.util.Optional;
@@ -28,6 +27,9 @@ public final class CdAPI {
         return CommonCardPackLoader.getCardIndex(cardId);
     }
 
+    public static Set<Map.Entry<ResourceLocation,CommonCardIndex>> getAllCommonCardIndex(){
+        return CommonCardPackLoader.getAllCards();
+    }
 
 
 }

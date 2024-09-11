@@ -9,15 +9,14 @@ import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 
-
-import static net.mcczai.cardduel.client.resource.loader.ClientCardPackLoader.CARD_INDEX;
+import static net.mcczai.cardduel.client.resource.ClientCardPackLoader.CARD_INDEX;
 
 
 public final class ClientCardIndexLoader {
     private static final Marker MARKER = MarkerManager.getMarker("ClientCardIndexLoader");
 
     public static void loadCardIndex() {
-        CdAPI.getAllClientCardIndex().forEach(index -> {
+        CdAPI.getAllCommonCardIndex().forEach(index -> {
             ResourceLocation id = index.getKey();
             CardIndexPOJO pojo = index.getValue().getPojo();
             try {

@@ -1,7 +1,6 @@
 package net.mcczai.cardduel.config.common;
 
 import net.neoforged.neoforge.common.ModConfigSpec;
-import net.neoforged.neoforge.common.NeoForgeConfig;
 
 public class OtherConfig {
     public static ModConfigSpec.BooleanValue DEFAULT_PACK_DEBUG;

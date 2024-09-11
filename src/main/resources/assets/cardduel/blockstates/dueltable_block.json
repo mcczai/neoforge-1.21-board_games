@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "cardduel:block/dueltable_block"
+    }
+  }
+}

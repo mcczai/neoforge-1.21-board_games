@@ -1,7 +1,7 @@
 package net.mcczai.cardduel.resources;
 
 import com.google.common.collect.Maps;
-import net.mcczai.cardduel.resources.pojo.data.CardData;
+import net.mcczai.cardduel.resources.pojo.CardDataPOJO;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.Map;
@@ -9,13 +9,13 @@ import java.util.Map;
 public enum CardAssetManager {
     INSTANCE;
 
-    private final Map<ResourceLocation, CardData> cardData = Maps.newHashMap();
+    private final Map<ResourceLocation, CardDataPOJO> cardData = Maps.newHashMap();
 
-    public void putCardData(ResourceLocation registryName,CardData data){
+    public void putCardData(ResourceLocation registryName, CardDataPOJO data){
         cardData.put(registryName,data);
     }
 
-    public CardData getCardData(ResourceLocation registryName){
+    public CardDataPOJO getCardData(ResourceLocation registryName){
         return cardData.get(registryName);
     }
 

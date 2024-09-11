@@ -160,7 +160,7 @@ public class CommonCardPackLoader {
         return Optional.ofNullable(CARD_INDEX.get(registryName));
     }
 
-    public static Set<Map.Entry<ResourceLocation, CommonCardIndex>> getAllGuns(){
+    public static Set<Map.Entry<ResourceLocation, CommonCardIndex>> getAllCards(){
         return CARD_INDEX.entrySet();
     }
 }

@@ -4,7 +4,7 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import net.mcczai.cardduel.CardduelMod;
 import net.mcczai.cardduel.client.resource.ClientAssetManager;
-import net.mcczai.cardduel.client.resource.PackInfo;
+import net.mcczai.cardduel.client.resource.pojo.PackInfoPOJO;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 
@@ -20,13 +20,12 @@ import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import static net.mcczai.cardduel.client.resource.loader.ClientCardPackLoader.GSON;
+import static net.mcczai.cardduel.client.resource.ClientCardPackLoader.GSON;
 
 public class PackInfoLoader {
     private static final Marker MARKER = MarkerManager.getMarker("CreativeTabLoader");
     private static final Pattern PACK_INFO_PATTERN = Pattern.compile("^(\\w+)/pack\\.json$");
 
-    @SuppressWarnings("UnstableApiUsage")
     public static boolean load(ZipFile zipFile, String zipPath) {
         Matcher matcher = PACK_INFO_PATTERN.matcher(zipPath);
         if (matcher.find()) {
@@ -37,8 +36,8 @@ public class PackInfoLoader {
                 return false;
             }
             try (InputStream inputStream = zipFile.getInputStream(entry)) {
-                PackInfo packInfo = GSON.fromJson(new InputStreamReader(inputStream, StandardCharsets.UTF_8), PackInfo.class);
-                ClientAssetManager.INSTANCE.putPackInfo(namespace, packInfo);
+                PackInfoPOJO packInfoPOJO = GSON.fromJson(new InputStreamReader(inputStream, StandardCharsets.UTF_8), PackInfoPOJO.class);
+                ClientAssetManager.INSTANCE.putPackInfo(namespace, packInfoPOJO);
                 return true;
             } catch (IOException | JsonSyntaxException | JsonIOException exception) {
                 CardduelMod.LOGGER.warn(MARKER, "Failed to read info json: {}, entry: {}", zipFile, entry);
@@ -48,13 +47,12 @@ public class PackInfoLoader {
         return false;
     }
 
-    @SuppressWarnings("UnstableApiUsage")
     public static void load(File root) {
         Path packInfoFilePath = root.toPath().resolve("pack.json");
         if (Files.isRegularFile(packInfoFilePath)) {
             try (InputStream stream = Files.newInputStream(packInfoFilePath)) {
-                PackInfo packInfo = GSON.fromJson(new InputStreamReader(stream, StandardCharsets.UTF_8), PackInfo.class);
-                ClientAssetManager.INSTANCE.putPackInfo(root.getName(), packInfo);
+                PackInfoPOJO packInfoPOJO = GSON.fromJson(new InputStreamReader(stream, StandardCharsets.UTF_8), PackInfoPOJO.class);
+                ClientAssetManager.INSTANCE.putPackInfo(root.getName(), packInfoPOJO);
             } catch (IOException | JsonSyntaxException | JsonIOException exception) {
                 CardduelMod.LOGGER.warn(MARKER, "Failed to read info json: {}", packInfoFilePath);
                 exception.printStackTrace();

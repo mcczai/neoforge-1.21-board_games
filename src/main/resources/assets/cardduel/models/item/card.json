@@ -1,0 +1,15 @@
+{
+  "parent": "neoforge:item/default",
+  "loader":"neoforge:separate_transforms",
+  "base": {
+    "parent": "cardduel:item/card"
+  },
+  "perspectives": {
+    "firstperson_righthand": {
+      "parent": "minecraft:item/iron_ingot"
+    },
+    "thirdperson_righthand": {
+      "parent": "minecraft:item/iron_ingot"
+    }
+  }
+}

@@ -1,16 +1,17 @@
 package net.mcczai.cardduel.resources;
 
 import com.google.common.base.Preconditions;
-import net.mcczai.cardduel.resources.pojo.data.CardData;
 import net.mcczai.cardduel.resources.pojo.CardIndexPOJO;
+import net.mcczai.cardduel.resources.pojo.CardDataPOJO;
 import net.minecraft.resources.ResourceLocation;
 
 public class CommonCardIndex {
 
-    private CardData cardData;
+    private CardDataPOJO cardDataPOJO;
     private String type;
     private int stackSize;
     private CardIndexPOJO pojo;
+    private int sort;
 
     private CommonCardIndex() {
     }
@@ -31,7 +32,7 @@ public class CommonCardIndex {
     private static void checkData(CardIndexPOJO cardIndexPOJO,CommonCardIndex index){
         ResourceLocation pojoData = cardIndexPOJO.getData();
         Preconditions.checkArgument(pojoData != null,"index object missing pojoData field");
-        CardData data = CardAssetManager.INSTANCE.getCardData(pojoData);
+        CardDataPOJO data = CardAssetManager.INSTANCE.getCardData(pojoData);
         Preconditions.checkArgument(data != null, "there is no corresponding data file");
         Preconditions.checkArgument(data.getATK() >= 1, "HP count must >= 1");
         Preconditions.checkArgument(data.getHP() >= 1, "HP count must >= 1");
@@ -42,8 +43,8 @@ public class CommonCardIndex {
     }
 
 
-    public CardData getCardData(){
-        return cardData;
+    public CardDataPOJO getCardData(){
+        return cardDataPOJO;
     }
 
     public String getType(){
@@ -52,5 +53,9 @@ public class CommonCardIndex {
 
     public CardIndexPOJO getPojo() {
         return pojo;
+    }
+
+    public int getSort(){
+        return sort;
     }
 }

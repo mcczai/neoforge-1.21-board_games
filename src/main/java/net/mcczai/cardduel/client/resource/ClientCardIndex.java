@@ -3,7 +3,7 @@ package net.mcczai.cardduel.client.resource;
 import com.google.common.base.Preconditions;
 import net.mcczai.cardduel.resources.CardAssetManager;
 import net.mcczai.cardduel.resources.pojo.CardIndexPOJO;
-import net.mcczai.cardduel.resources.pojo.data.CardData;
+import net.mcczai.cardduel.resources.pojo.CardDataPOJO;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 public class ClientCardIndex {
     private String name;
     private String type;
-    private CardData cardData;
+    private CardDataPOJO cardDataPOJO;
     private @Nullable String tooltipKey;
     private int stackSize;
     private CardIndexPOJO pojo;
@@ -45,10 +45,10 @@ public class ClientCardIndex {
     private static void checkData(CardIndexPOJO cardIndexPOJO, ClientCardIndex index) {
         ResourceLocation pojoData = cardIndexPOJO.getData();
         Preconditions.checkArgument(pojoData != null, "index object missing pojoData field");
-        CardData data = CardAssetManager.INSTANCE.getCardData(pojoData);
+        CardDataPOJO data = CardAssetManager.INSTANCE.getCardData(pojoData);
         Preconditions.checkArgument(data != null, "there is no corresponding data file");
         // 剩下的不需要校验了，Common的读取逻辑中已经校验过了
-        index.cardData = data;
+        index.cardDataPOJO = data;
     }
 
 
@@ -60,8 +60,8 @@ public class ClientCardIndex {
         return name;
     }
 
-    public CardData getCardData(){
-        return cardData;
+    public CardDataPOJO getCardData(){
+        return cardDataPOJO;
     }
 
     public CardIndexPOJO getPojo() {

@@ -1,5 +1,6 @@
 package net.mcczai.cardduel;
 
+import net.mcczai.cardduel.API.resource.ResourceManager;
 import net.mcczai.cardduel.config.CommonConfig;
 import net.mcczai.cardduel.init.ModBlockEntities;
 import net.mcczai.cardduel.init.ModBlocks;
@@ -16,6 +17,7 @@ import org.apache.logging.log4j.Logger;
 public class CardduelMod {
 
     public static final String MODID = "cardduel";
+    public static final String DEFAULT_PACK = "default_card_pack";
 
     public static final Logger LOGGER = LogManager.getLogger(MODID);
 
@@ -28,5 +30,12 @@ public class CardduelMod {
         ModBlockEntities.BLOCK_ENTITIES.register(Bus);
         ModDataComponents.DATA_COMPONENTS.register(Bus);
         CardduelCreativeTab.CARDDUEL_TABS.register(Bus);
+
+        registerDefaultExtraCardPack();
+    }
+
+    public static void registerDefaultExtraCardPack() {
+        String jarDefaultPackPath = String.format("/assets/%s/custom/%s",MODID,DEFAULT_PACK);
+        ResourceManager.registerExtraGunPack(CardduelMod.class,jarDefaultPackPath);
     }
 }

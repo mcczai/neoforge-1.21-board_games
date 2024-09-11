@@ -4,8 +4,8 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import net.mcczai.cardduel.CardduelMod;
 import net.mcczai.cardduel.resources.CardAssetManager;
-import net.mcczai.cardduel.resources.pojo.data.CardData;
 import net.mcczai.cardduel.resources.CommonCardPackLoader;
+import net.mcczai.cardduel.resources.pojo.CardDataPOJO;
 import net.mcczai.cardduel.util.PathVisitor;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.commons.io.IOUtils;
@@ -22,7 +22,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-
+    //网络包记得写
 public final class CardDataLoader {
     private static final Marker MARKER = MarkerManager.getMarker("CardDataLoader");
     public static final Pattern CARD_DATA_PATTERN = Pattern.compile("^(\\w+)/cards/data/([\\w/]+)\\.json$");
@@ -78,7 +78,7 @@ public final class CardDataLoader {
     }
 
     public static void loadFromJsonString(ResourceLocation id, String json) {
-        CardData data = CommonCardPackLoader.GSON.fromJson(json, CardData.class);
+        CardDataPOJO data = CommonCardPackLoader.GSON.fromJson(json, CardDataPOJO.class);
         CardAssetManager.INSTANCE.putCardData(id, data);
     }
 
