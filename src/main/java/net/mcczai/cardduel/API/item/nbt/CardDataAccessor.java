@@ -90,9 +90,9 @@ public interface CardDataAccessor extends ICard{
         return 0;
     }
 
-    default void setType(ItemStack card,int type){
+    default void setType(ItemStack card,String type){
         CompoundTag tag = card.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        tag.putInt("Type",Math.max(type,0));
+        tag.putString("Type",type);
         card.set(DataComponents.CUSTOM_DATA,CustomData.of(tag));
     }
 
