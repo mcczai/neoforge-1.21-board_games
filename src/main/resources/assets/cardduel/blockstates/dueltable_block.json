@@ -1,7 +1,27 @@
 {
   "variants": {
-    "": {
-      "model": "cardduel:block/dueltable_block"
+    "facing=north": {
+      "model":"cardduel:block/dueltable_block"
+    },
+    "facing=south": {
+      "model":"cardduel:block/dueltable_block",
+      "y" : 180
+    },
+    "facing=west": {
+      "model":"cardduel:block/dueltable_block",
+      "y" : 270
+    },
+    "facing=east": {
+      "model":"cardduel:block/dueltable_block",
+      "y" : 90
+    },
+    "facing=down": {
+      "model":"cardduel:block/dueltable_block",
+      "y" : 90
+    },
+    "facing=up": {
+      "model":"cardduel:block/dueltable_block",
+      "y" : 90
     }
   }
 }

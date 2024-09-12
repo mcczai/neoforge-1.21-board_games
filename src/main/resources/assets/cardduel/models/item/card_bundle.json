@@ -1,3 +1,6 @@
 {
-  "parent": "cardduel:item/card_bundle"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "cardduel:item/card_bundle"
+  }
 }

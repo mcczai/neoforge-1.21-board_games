@@ -2,7 +2,7 @@
   "parent": "neoforge:item/default",
   "loader":"neoforge:separate_transforms",
   "base": {
-    "parent": "cardduel:item/card"
+    "parent": "minecraft:item/generated"
   },
   "perspectives": {
     "firstperson_righthand": {

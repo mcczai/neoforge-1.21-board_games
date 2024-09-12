@@ -15,11 +15,14 @@ import static net.mcczai.cardduel.CardduelMod.MODID;
 public class CardduelCreativeTab {
     public static final DeferredRegister<CreativeModeTab> CARDDUEL_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
+
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> TARP_TAB = CARDDUEL_TABS.register("tarp_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.cardduel.tarp"))
             .withTabsBefore(CreativeModeTabs.COMBAT)
             .icon(() -> ModItem.CARD_ITEM.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
+                output.accept(ModItem.CARD_BUNDLE_ITEM);
+                output.accept(ModItem.DUELTABLE_BLOCK_ITEM);
                 output.acceptAll(AbstractCardItem.ItemTab(CardTabType.TRAP));
             }).build());
 

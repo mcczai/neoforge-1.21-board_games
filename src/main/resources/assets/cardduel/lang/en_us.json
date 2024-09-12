@@ -1,6 +1,11 @@
 {
-  "itemGroup.cardduel.tarp" : "Duel!——Trap Card",
-  "itemGroup.cardduel.mana" : "Duel!——Mana Card",
-  "itemGroup.cardduel.equip" : "Duel!——Equip Card",
-  "itemGroup.cardduel.summon" : "Duel!——Summon Card"
+  "itemGroup.cardduel.tarp" : "Duel!—Trap Card",
+  "itemGroup.cardduel.mana" : "Duel!—Mana Card",
+  "itemGroup.cardduel.equip" : "Duel!—Equip Card",
+  "itemGroup.cardduel.summon" : "Duel!—Summon Card",
+
+  "block.cardduel.dueltable_block": "Duel Table",
+
+  "item.cardduel.card_bundle": "Card Bundle"
+
 }
