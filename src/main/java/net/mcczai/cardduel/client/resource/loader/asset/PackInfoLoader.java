@@ -7,6 +7,7 @@ import net.mcczai.cardduel.client.resource.ClientAssetManager;
 import net.mcczai.cardduel.client.resource.pojo.PackInfoPOJO;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,7 +48,7 @@ public class PackInfoLoader {
         return false;
     }
 
-    public static void load(File root) {
+    public static void load(@NotNull File root) {
         Path packInfoFilePath = root.toPath().resolve("pack.json");
         if (Files.isRegularFile(packInfoFilePath)) {
             try (InputStream stream = Files.newInputStream(packInfoFilePath)) {

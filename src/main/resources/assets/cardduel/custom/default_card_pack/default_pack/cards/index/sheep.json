@@ -1,3 +1,7 @@
 {
-  "name": "default_card.card.sheep.name"
+  "name": "default_card.card.sheep.name",
+  "data": "default_pack:sheep",
+  "stack_size": 1,
+  "tooltip": "default_card.card.sheep.tooltip",
+  "type": "summon"
 }

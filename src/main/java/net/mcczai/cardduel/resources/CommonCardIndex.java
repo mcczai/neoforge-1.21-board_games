@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 import net.mcczai.cardduel.resources.pojo.CardIndexPOJO;
 import net.mcczai.cardduel.resources.pojo.CardDataPOJO;
 import net.minecraft.resources.ResourceLocation;
+import org.apache.commons.lang3.StringUtils;
 
 public class CommonCardIndex {
 
@@ -26,6 +27,7 @@ public class CommonCardIndex {
 
     private static void checkIndex(CardIndexPOJO cardIndexPOJO, CommonCardIndex index) {
         Preconditions.checkArgument(cardIndexPOJO != null, "index object file is empty");
+        Preconditions.checkArgument(StringUtils.isNoneBlank(CardIndexPOJO.getType()));
         index.stackSize = Math.max(cardIndexPOJO.getStackSize(), 1);
     }
 

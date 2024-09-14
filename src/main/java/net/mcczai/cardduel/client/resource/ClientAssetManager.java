@@ -2,6 +2,7 @@ package net.mcczai.cardduel.client.resource;
 
 import com.google.common.collect.Maps;
 import net.mcczai.cardduel.client.resource.pojo.PackInfoPOJO;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
@@ -28,6 +29,14 @@ public enum ClientAssetManager {
         Map<String, String> languageMaps = languages.getOrDefault(region, Maps.newHashMap());
         languageMaps.putAll(lang);
         languages.put(region, languageMaps);
+    }
+
+    public Map<String, String> getLanguages(String region) {
+        return languages.get(region);
+    }
+
+    public PackInfoPOJO getPackInfo(ResourceLocation id){
+        return customInfos.get(id.getNamespace());
     }
 
     public void clearAll(){

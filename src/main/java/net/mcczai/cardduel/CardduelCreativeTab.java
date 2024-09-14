@@ -25,8 +25,8 @@ public class CardduelCreativeTab {
                 output.accept(ModItem.DUELTABLE_BLOCK_ITEM);
                 output.acceptAll(AbstractCardItem.ItemTab(CardTabType.TRAP));
             }).build());
-
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MANA_TAB = CARDDUEL_TABS.register("mana_tab", () -> CreativeModeTab.builder()
+    // TODO:这里有按牌类型分类的实现，暂时注释掉
+  /*  public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MANA_TAB = CARDDUEL_TABS.register("mana_tab", () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.cardduel.mana"))
                     .withTabsBefore(TARP_TAB.getId())
                     .icon(() -> ModItem.CARD_ITEM.get().getDefaultInstance())
@@ -48,5 +48,5 @@ public class CardduelCreativeTab {
             .icon(() -> ModItem.CARD_ITEM.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
                 output.acceptAll(AbstractCardItem.ItemTab(CardTabType.SUMMON));
-            }).build());
+            }).build());*/
 }

@@ -22,7 +22,7 @@ public class CardIndexPOJO {
 
     @SerializedName("type")
     @Nullable
-    private String type;
+    private static String type;
 
     public String getName() {
         return name;
@@ -41,7 +41,7 @@ public class CardIndexPOJO {
         return data;
     }
 
-    public String getType() {
+    public static String getType() {
         return type;
     }
 }

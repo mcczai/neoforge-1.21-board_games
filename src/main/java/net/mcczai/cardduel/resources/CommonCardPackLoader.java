@@ -35,7 +35,7 @@ public class CommonCardPackLoader {
     public static final Map<ResourceLocation, CommonCardIndex> CARD_INDEX = Maps.newHashMap();
 
     /**
-     *创建目录
+     *创建目录，并复制默认包至该目录
      */
     public static void init(){
         createFolder();

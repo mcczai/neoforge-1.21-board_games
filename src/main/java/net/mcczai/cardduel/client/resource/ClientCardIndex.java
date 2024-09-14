@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
@@ -22,34 +23,35 @@ public class ClientCardIndex {
 
     private ClientCardIndex(){}
 
-    public static ClientCardIndex getInstance(CardIndexPOJO cardIndexPOJO) throws IllegalArgumentException{
+    public static @NotNull ClientCardIndex getInstance(CardIndexPOJO cardIndexPOJO) throws IllegalArgumentException{
         ClientCardIndex index = new ClientCardIndex();
         CheckIndex(cardIndexPOJO,index);
+        checkData(cardIndexPOJO,index);
         CheckName(cardIndexPOJO,index);
         return index;
     }
 
-    private static void CheckIndex(CardIndexPOJO cardIndexPOJO,ClientCardIndex index){
+    private static void CheckIndex(@NotNull CardIndexPOJO cardIndexPOJO, @NotNull ClientCardIndex index){
         Preconditions.checkArgument(cardIndexPOJO != null,"index object file is empty");
         Preconditions.checkArgument(StringUtils.isNoneBlank(cardIndexPOJO.getType()), "index object missing type field");
         index.type = cardIndexPOJO.getType();
     }
 
-    public static void CheckName(CardIndexPOJO cardIndexPOJO,ClientCardIndex index){
+    public static void CheckName(@NotNull CardIndexPOJO cardIndexPOJO, @NotNull ClientCardIndex index){
         index.name = cardIndexPOJO.getName();
         if (StringUtils.isBlank(index.name)){
             index.name = "custom.cardduel.err.no_name";
         }
     }
 
-    private static void checkData(CardIndexPOJO cardIndexPOJO, ClientCardIndex index) {
+    private static void checkData(@NotNull CardIndexPOJO cardIndexPOJO, @NotNull ClientCardIndex index) {
         ResourceLocation pojoData = cardIndexPOJO.getData();
         Preconditions.checkArgument(pojoData != null, "index object missing pojoData field");
         CardDataPOJO data = CardAssetManager.INSTANCE.getCardData(pojoData);
         Preconditions.checkArgument(data != null, "there is no corresponding data file");
-        // 剩下的不需要校验了，Common的读取逻辑中已经校验过了
         index.cardDataPOJO = data;
     }
+
 
 
     public String getType() {

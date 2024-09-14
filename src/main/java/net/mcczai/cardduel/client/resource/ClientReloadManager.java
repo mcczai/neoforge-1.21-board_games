@@ -14,8 +14,4 @@ public class ClientReloadManager {
         CommonCardPackLoader.reloadIndex();
         ClientCardPackLoader.reloadIndex();
     }
-
-    public static void cacheAll(){
-
-    }
 }

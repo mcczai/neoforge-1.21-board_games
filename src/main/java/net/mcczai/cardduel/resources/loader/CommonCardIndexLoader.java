@@ -42,7 +42,7 @@ public class CommonCardIndexLoader {
             try (InputStream stream = zipFile.getInputStream(entry)) {
                 String json = IOUtils.toString(stream, StandardCharsets.UTF_8);
                 ResourceLocation registryName =  ResourceLocation.fromNamespaceAndPath(namespace, id);
-                loadGunFromJsonString(registryName, json);
+                loadCardFromJsonString(registryName, json);
             } catch (IllegalArgumentException | JsonSyntaxException | JsonIOException exception) {
                 CardduelMod.LOGGER.warn("{} index file read fail!", path);
                 exception.printStackTrace();
@@ -56,7 +56,7 @@ public class CommonCardIndexLoader {
             PathVisitor visitor = new PathVisitor(filePath.toFile(), root.getName(), ".json", (id, file) -> {
                 try (InputStream stream = Files.newInputStream(file)) {
                     String json = IOUtils.toString(stream, StandardCharsets.UTF_8);
-                    loadGunFromJsonString(id, json);
+                    loadCardFromJsonString(id, json);
                 } catch (IllegalArgumentException | IOException | JsonSyntaxException | JsonIOException exception) {
                     CardduelMod.LOGGER.warn("{} index file read fail!", file);
                     exception.printStackTrace();
@@ -66,7 +66,7 @@ public class CommonCardIndexLoader {
         }
     }
 
-    public static void loadGunFromJsonString(ResourceLocation id, String json) {
+    public static void loadCardFromJsonString(ResourceLocation id, String json) {
         CardIndexPOJO indexPOJO = GSON.fromJson(json, CardIndexPOJO.class);
         CARD_INDEX.put(id, CommonCardIndex.getInstance(indexPOJO));
     }

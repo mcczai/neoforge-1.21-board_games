@@ -13,17 +13,16 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public class ModDataComponents {
     public static final DeferredRegister.DataComponents DATA_COMPONENTS = DeferredRegister.createDataComponents(CardduelMod.MODID);
 
-
-    public static final DeferredHolder<DataComponentType<?>,DataComponentType<ItemStackWrapper>> IN_CARD = DATA_COMPONENTS.registerComponentType(
-            "in_card",builder -> builder.persistent(ItemStackWrapper.CODEC).networkSynchronized(ItemStackWrapper.STREAM_CODEC).cacheEncoding()
-    );
-
     public static final DeferredHolder<DataComponentType<?>,DataComponentType<Integer>> HP = DATA_COMPONENTS.registerComponentType(
             "hp",builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT)
     );
 
     public static final DeferredHolder<DataComponentType<?>,DataComponentType<Integer>> ATK = DATA_COMPONENTS.registerComponentType(
             "atk",builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT)
+    );
+
+    public static final DeferredHolder<DataComponentType<?>,DataComponentType<Integer>> MP = DATA_COMPONENTS.registerComponentType(
+            "mp",builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT)
     );
 
     public static final DeferredHolder<DataComponentType<?>,DataComponentType<String>> DESCRIPTION = DATA_COMPONENTS.registerComponentType(
