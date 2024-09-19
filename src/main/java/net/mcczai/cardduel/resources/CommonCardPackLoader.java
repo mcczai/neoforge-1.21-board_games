@@ -34,6 +34,8 @@ public class CommonCardPackLoader {
 
     public static final Map<ResourceLocation, CommonCardIndex> CARD_INDEX = Maps.newHashMap();
 
+    @Deprecated//TODO :这里是创建目录的地方，未检查出客户端为何不执行前此TODO不要删除
+
     /**
      *创建目录，并复制默认包至该目录
      */

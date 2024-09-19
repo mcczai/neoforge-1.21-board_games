@@ -19,7 +19,7 @@ public class CardduelCreativeTab {
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> TARP_TAB = CARDDUEL_TABS.register("tarp_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.cardduel.tarp"))
             .withTabsBefore(CreativeModeTabs.COMBAT)
-            .icon(() -> ModItem.CARD_ITEM.get().getDefaultInstance())
+            .icon(() -> ModItem.DUELTABLE_BLOCK_ITEM.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
                 output.accept(ModItem.CARD_BUNDLE_ITEM);
                 output.accept(ModItem.DUELTABLE_BLOCK_ITEM);

@@ -2,7 +2,6 @@ package net.mcczai.cardduel.init;
 
 import com.mojang.serialization.Codec;
 import net.mcczai.cardduel.CardduelMod;
-import net.mcczai.cardduel.items.component.ItemStackWrapper;
 import net.mcczai.cardduel.items.inventory.CardBundleContents;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -40,5 +39,6 @@ public class ModDataComponents {
     public static final DeferredHolder<DataComponentType<?>,DataComponentType<CardBundleContents>> CARD_BUNDLE = DATA_COMPONENTS.registerComponentType(
             "card_bundle",listBuilder -> listBuilder.persistent(CardBundleContents.CODEC).networkSynchronized(CardBundleContents.STREAM_CODEC)
     );
+
 
 }
