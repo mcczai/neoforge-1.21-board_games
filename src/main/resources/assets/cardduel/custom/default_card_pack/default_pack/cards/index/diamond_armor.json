@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.diamond_armor.name",
   "data": "default_pack:diamond_armor_data",
   "stack_size": 1,
   "tooltip": "default_card.card.diamond_armor.tooltip",
   "type": "equip",
+  "rarity": "uncommon",
   "texture": "default_pack:diamond_armor"
 }

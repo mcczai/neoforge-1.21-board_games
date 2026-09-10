@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.totem_of_undying.name",
   "data": "default_pack:totem_of_undying_data",
   "stack_size": 1,
   "tooltip": "default_card.card.totem_of_undying.tooltip",
   "type": "mana",
+  "rarity": "epic",
   "texture": "default_pack:totem_of_undying"
 }

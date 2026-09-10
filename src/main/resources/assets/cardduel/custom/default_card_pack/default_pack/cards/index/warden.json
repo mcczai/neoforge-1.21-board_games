@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.warden.name",
   "data": "default_pack:warden_data",
   "stack_size": 1,
   "tooltip": "default_card.card.warden.tooltip",
   "type": "summon",
+  "rarity": "epic",
   "texture": "default_pack:warden"
 }

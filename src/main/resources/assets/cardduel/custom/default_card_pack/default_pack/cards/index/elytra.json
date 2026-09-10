@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.elytra.name",
   "data": "default_pack:elytra_data",
   "stack_size": 1,
   "tooltip": "default_card.card.elytra.tooltip",
   "type": "equip",
+  "rarity": "uncommon",
   "texture": "default_pack:elytra"
 }

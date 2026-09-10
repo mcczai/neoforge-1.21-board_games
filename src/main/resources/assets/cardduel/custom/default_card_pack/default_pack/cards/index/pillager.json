@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.pillager.name",
   "data": "default_pack:pillager_data",
   "stack_size": 1,
   "tooltip": "default_card.card.pillager.tooltip",
   "type": "summon",
+  "rarity": "rare",
   "texture": "default_pack:pillager"
 }

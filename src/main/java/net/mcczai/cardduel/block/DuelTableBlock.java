@@ -4,9 +4,11 @@ import com.mojang.serialization.MapCodec;
 import net.mcczai.cardduel.block.entity.DuelTableBlockEntity;
 import net.mcczai.cardduel.duel.DuelEngine;
 import net.mcczai.cardduel.init.ModBlocks;
+import net.mcczai.cardduel.items.CardBagItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -85,12 +87,38 @@ public class DuelTableBlock extends BaseEntityBlock {
         builder.add(FACING,DOUBLE);
     }
 
+    /**
+     * 解析双桌对的"主桌"方块实体：所有右键交互（入座/离座/提交牌组/破坏清座）
+     * 一律以主桌 BE 为唯一状态载体。规则：点击格无房主且配对格有房主 → 配对格；
+     * 其余情况（单桌 / 点击格已有房主 / 两格都无房主）→ 点击格自身。
+     * FACING 恒指向配桌方向（updateShape 保证），故可从任意一格确定性地定位配对格。
+     */
+    @Nullable
+    public static DuelTableBlockEntity resolvePrimary(@NotNull Level level, @NotNull BlockPos pos) {
+        BlockState state = level.getBlockState(pos);
+        if (!state.is(ModBlocks.DUELTABLE_BLOCK.get())
+                || !(level.getBlockEntity(pos) instanceof DuelTableBlockEntity clicked)) {
+            return null;
+        }
+        if (state.getValue(DOUBLE) && clicked.getHostUuid() == null) {
+            BlockPos partnerPos = pos.relative(state.getValue(FACING));
+            if (level.getBlockState(partnerPos).is(ModBlocks.DUELTABLE_BLOCK.get())
+                    && level.getBlockEntity(partnerPos) instanceof DuelTableBlockEntity partner
+                    && partner.getHostUuid() != null) {
+                return partner;
+            }
+        }
+        return clicked;
+    }
+
     @Override
     protected void onRemove(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos,
                             @NotNull BlockState newState, boolean movedByPiston) {
-        if (!state.is(newState.getBlock()) && !level.isClientSide
-                && level.getBlockEntity(pos) instanceof DuelTableBlockEntity table) {
-            table.clearSeatsOnBreak(level.getServer());
+        if (!state.is(newState.getBlock()) && !level.isClientSide) {
+            DuelTableBlockEntity table = resolvePrimary(level, pos);
+            if (table != null) {
+                table.clearSeatsOnBreak(level.getServer());
+            }
         }
         super.onRemove(state, level, pos, newState, movedByPiston);
     }
@@ -99,11 +127,17 @@ public class DuelTableBlock extends BaseEntityBlock {
     protected @NotNull InteractionResult useWithoutItem(@NotNull BlockState state, @NotNull Level level,
                                                         @NotNull BlockPos pos, @NotNull Player player,
                                                         @NotNull BlockHitResult hitResult) {
+        // 手持卡牌袋时把交互让给 CardBagItem.useOn（提交/取消牌组）。
+        // 1.21 的交互顺序是 方块useItemOn → 方块useWithoutItem → 物品useOn：
+        // 这里若消费掉交互，物品的 useOn 永远轮不到，卡包右键牌桌会变成"空手点桌"。
+        if (player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof CardBagItem) {
+            return InteractionResult.PASS;
+        }
         if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         }
-        if (player instanceof ServerPlayer serverPlayer
-                && level.getBlockEntity(pos) instanceof DuelTableBlockEntity table) {
+        DuelTableBlockEntity table = resolvePrimary(level, pos);
+        if (player instanceof ServerPlayer serverPlayer && table != null) {
             if (player.isShiftKeyDown()) {
                 return DuelEngine.handleLeave(serverPlayer, table);
             }

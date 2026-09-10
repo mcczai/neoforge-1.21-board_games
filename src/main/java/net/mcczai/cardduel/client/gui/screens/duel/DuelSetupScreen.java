@@ -81,6 +81,12 @@ public class DuelSetupScreen extends Screen {
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         guiGraphics.drawCenteredString(this.font, this.title, this.width / 2, 30, 0xFFFFFF);
+
+        // 输入框标签：EditBox 的 Component 只是空框时的占位提示，
+        // 预填默认值后不再显示，因此这里固定画在框上方。
+        int x = this.width / 2 - 100;
+        guiGraphics.drawString(this.font, Component.translatable("cardduel.duel.setup.mana"), x, 58 - 12, 0xFFA0A0A0);
+        guiGraphics.drawString(this.font, Component.translatable("cardduel.duel.setup.hp"), x, 96 - 12, 0xFFA0A0A0);
     }
 
     @Override

@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.tripwire_hook.name",
   "data": "default_pack:tripwire_hook_data",
   "stack_size": 1,
   "tooltip": "default_card.card.tripwire_hook.tooltip",
   "type": "trap",
+  "rarity": "common",
   "texture": "default_pack:tripwire_hook"
 }

@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.silverfish.name",
   "data": "default_pack:silverfish_data",
   "stack_size": 1,
   "tooltip": "default_card.card.silverfish.tooltip",
   "type": "summon",
+  "rarity": "common",
   "texture": "default_pack:silverfish"
 }

@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.small_zombie.name",
   "data": "default_pack:small_zombie_data",
   "stack_size": 1,
   "tooltip": "default_card.card.small_zombie.tooltip",
   "type": "summon",
+  "rarity": "common",
   "texture": "default_pack:small_zombie"
 }

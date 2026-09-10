@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.ravager.name",
   "data": "default_pack:ravager_data",
   "stack_size": 1,
   "tooltip": "default_card.card.ravager.tooltip",
   "type": "summon",
+  "rarity": "uncommon",
   "texture": "default_pack:ravager"
 }

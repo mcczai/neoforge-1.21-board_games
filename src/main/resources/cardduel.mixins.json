@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_21",
   "refmap": "cardduel.refmap.json",
   "client": [
-    "Client.LanguageMixin"
+    "Client.LanguageMixin",
+    "Client.CameraSetupMixin"
   ]
 }

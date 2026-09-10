@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.mace.name",
   "data": "default_pack:mace_data",
   "stack_size": 1,
   "tooltip": "default_card.card.mace.tooltip",
   "type": "equip",
+  "rarity": "uncommon",
   "texture": "default_pack:mace"
 }

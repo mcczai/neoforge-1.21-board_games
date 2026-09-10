@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.lava_bucket.name",
   "data": "default_pack:lava_bucket_data",
   "stack_size": 1,
   "tooltip": "default_card.card.lava_bucket.tooltip",
   "type": "mana",
+  "rarity": "rare",
   "texture": "default_pack:lava_bucket"
 }

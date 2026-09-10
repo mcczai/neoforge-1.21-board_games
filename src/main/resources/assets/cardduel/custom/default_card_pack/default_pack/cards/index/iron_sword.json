@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.iron_sword.name",
   "data": "default_pack:iron_sword_data",
   "stack_size": 1,
   "tooltip": "default_card.card.iron_sword.tooltip",
   "type": "equip",
+  "rarity": "common",
   "texture": "default_pack:iron_sword"
 }

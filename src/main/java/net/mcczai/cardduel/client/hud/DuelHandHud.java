@@ -5,9 +5,12 @@ import net.mcczai.cardduel.CardduelMod;
 import net.mcczai.cardduel.API.item.nbt.CardDataAccessor;
 import net.mcczai.cardduel.client.duel.ClientDuelHand;
 import net.mcczai.cardduel.client.duel.DuelCameraManager;
+import net.mcczai.cardduel.client.duel.DuelHudScreen;
 import net.mcczai.cardduel.client.duel.DuelInteraction;
 import net.mcczai.cardduel.client.resource.ClientCardIndex;
+import net.mcczai.cardduel.client.render.CardValueOverlay;
 import net.mcczai.cardduel.resources.DefaultAssets;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
@@ -15,31 +18,28 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.RenderGuiEvent;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 /**
  * 炉石式手牌 HUD：对局中把手牌（数据源 = ClientboundDuelHandPayload）平铺在窗口下方。
+ * 注册为"最高层"的 GUI 层（见 ClientModEvents.onRegisterGuiLayers），
+ * 保证绘制在聊天栏等所有原版/第三方层之上，不会被遮挡。
  * 点击命中检测与 HudClickManager 共用本类的手牌布局（handIndexAt）。
  */
 @OnlyIn(Dist.CLIENT)
-@EventBusSubscriber(modid = CardduelMod.MODID, value = Dist.CLIENT)
 public class DuelHandHud {
     public static final int CARD_W = 44;
     public static final int CARD_H = 62;
     public static final int GAP = 4;
     public static final int HOVER_SCALE = 4;
-    public static final int HAND_Y = 78; // 手牌顶部距窗口底部
+    /** 手牌顶部距窗口底部：置于窗口最下方，覆盖在聊天栏之上（顶层绘制） */
+    public static final int HAND_Y = 78;
 
-    @SubscribeEvent
-    public static void onRenderGuiPost(RenderGuiEvent.Post event) {
+    public static void renderLayer(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
         Minecraft mc = Minecraft.getInstance();
-        if (mc.screen != null || mc.player == null || mc.level == null) {
+        if ((mc.screen != null && !(mc.screen instanceof DuelHudScreen)) || mc.player == null || mc.level == null) {
             return;
         }
         if (!DuelCameraManager.inDuelView()) {
@@ -50,7 +50,6 @@ public class DuelHandHud {
             return;
         }
 
-        GuiGraphics guiGraphics = event.getGuiGraphics();
         int screenWidth = guiGraphics.guiWidth();
         int screenHeight = guiGraphics.guiHeight();
 
@@ -79,6 +78,14 @@ public class DuelHandHud {
             int hx = startX + hovered * (CARD_W + GAP) - HOVER_SCALE;
             int hy = y - HOVER_SCALE;
             drawCard(guiGraphics, hand.get(hovered), hx, hy, CARD_W + HOVER_SCALE * 2, CARD_H + HOVER_SCALE * 2, highlightOf(hovered));
+        }
+
+        // 拖拽中的手牌跟随光标
+        int drag = DuelInteraction.getDraggingHand();
+        if (drag >= 0 && drag < hand.size()) {
+            int dx = (int) mouseX - CARD_W / 2;
+            int dy = (int) mouseY - CARD_H / 2;
+            drawCard(guiGraphics, hand.get(drag), dx, dy, CARD_W, CARD_H, 1);
         }
     }
 
@@ -150,5 +157,7 @@ public class DuelHandHud {
         if (highlight == 0) {
             guiGraphics.fill(x, y, x + width, y + height, 0x66000000);
         }
+        // 实时数值层（攻击/生命/费用，颜色反映增减）
+        CardValueOverlay.drawOnHud(guiGraphics, stack, CardValueOverlay.layoutFor(stack), x, y, width, height);
     }
 }

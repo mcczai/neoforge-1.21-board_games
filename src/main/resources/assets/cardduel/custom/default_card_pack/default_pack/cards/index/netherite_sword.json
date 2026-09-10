@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.netherite_sword.name",
   "data": "default_pack:netherite_sword_data",
   "stack_size": 1,
   "tooltip": "default_card.card.netherite_sword.tooltip",
   "type": "equip",
+  "rarity": "epic",
   "texture": "default_pack:netherite_sword"
 }

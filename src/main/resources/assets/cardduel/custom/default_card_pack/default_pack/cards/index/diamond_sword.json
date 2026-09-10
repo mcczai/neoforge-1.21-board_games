@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.diamond_sword.name",
   "data": "default_pack:diamond_sword_data",
   "stack_size": 1,
   "tooltip": "default_card.card.diamond_sword.tooltip",
   "type": "equip",
+  "rarity": "rare",
   "texture": "default_pack:diamond_sword"
 }

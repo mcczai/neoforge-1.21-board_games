@@ -11,6 +11,7 @@ import net.mcczai.cardduel.network.payload.ServerboundLeavePayload;
 import net.mcczai.cardduel.network.payload.ServerboundMulliganPayload;
 import net.mcczai.cardduel.network.payload.ServerboundPlayCardPayload;
 import net.mcczai.cardduel.network.payload.ServerboundSetupPayload;
+import net.mcczai.cardduel.network.payload.ServerboundSurrenderPayload;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
@@ -37,7 +38,8 @@ public final class DuelNet {
                 .playToServer(ServerboundEndTurnPayload.TYPE, ServerboundEndTurnPayload.STREAM_CODEC, DuelNet::handleEndTurn)
                 .playToServer(ServerboundPlayCardPayload.TYPE, ServerboundPlayCardPayload.STREAM_CODEC, DuelNet::handlePlayCard)
                 .playToServer(ServerboundAttackPayload.TYPE, ServerboundAttackPayload.STREAM_CODEC, DuelNet::handleAttack)
-                .playToServer(ServerboundMulliganPayload.TYPE, ServerboundMulliganPayload.STREAM_CODEC, DuelNet::handleMulligan);
+                .playToServer(ServerboundMulliganPayload.TYPE, ServerboundMulliganPayload.STREAM_CODEC, DuelNet::handleMulligan)
+                .playToServer(ServerboundSurrenderPayload.TYPE, ServerboundSurrenderPayload.STREAM_CODEC, DuelNet::handleSurrender);
     }
 
     /**
@@ -62,6 +64,14 @@ public final class DuelNet {
     private static void handleMulligan(ServerboundMulliganPayload payload, IPayloadContext context) {
         context.enqueueWork(() -> withTable(context, (player, table) ->
                 DuelEngine.mulligan(player, table, payload.indices())));
+    }
+
+    /**
+     * 认输。
+     */
+    private static void handleSurrender(ServerboundSurrenderPayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> withTable(context, (player, table) ->
+                DuelEngine.surrender(player, table)));
     }
 
     /**

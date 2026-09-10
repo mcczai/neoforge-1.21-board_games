@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.wither_rose.name",
   "data": "default_pack:wither_rose_data",
   "stack_size": 1,
   "tooltip": "default_card.card.wither_rose.tooltip",
   "type": "trap",
+  "rarity": "uncommon",
   "texture": "default_pack:wither_rose"
 }

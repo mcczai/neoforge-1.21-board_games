@@ -3,6 +3,7 @@ package net.mcczai.cardduel.client.duel;
 import net.mcczai.cardduel.CardduelMod;
 import net.mcczai.cardduel.network.payload.ClientboundDuelSyncPayload;
 import net.minecraft.client.Camera;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
@@ -11,6 +12,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
 import net.neoforged.neoforge.client.event.RenderHandEvent;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
@@ -28,11 +30,14 @@ public class DuelCameraManager {
     /** 相机离桌面高度（米） */
     public static final float CAMERA_HEIGHT = 6.0F;
 
+    /** 一次性日志标记：确认相机改写与伪屏幕是否真正执行（排障用） */
+    private static boolean cameraLogged;
+    private static boolean screenLogged;
+    private static boolean faceLogged;
+
     @SubscribeEvent
     public static void onRenderLevel(RenderLevelStageEvent event) {
-        if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_SKY) {
-            return;
-        }
+        // 不再限定阶段：任意阶段都强制俯视相机（消除阶段判断/事件时序的失败面）
         ClientboundDuelSyncPayload sync = ClientDuelState.get();
         if (sync == null || !isActivePhase(sync.phase())) {
             return;
@@ -48,6 +53,75 @@ public class DuelCameraManager {
         Camera camera = event.getCamera();
         camera.setPosition(center.x, center.y + CAMERA_HEIGHT, center.z);
         camera.setRotation(0.0F, 90.0F, 0.0F);
+
+        if (!cameraLogged) {
+            cameraLogged = true;
+            CardduelMod.LOGGER.info("[cardduel] 俯视相机已接管：桌心=({}, {}, {}) 高度={} 阶段={} 事件阶段={}",
+                    String.format("%.2f", center.x), String.format("%.2f", center.y),
+                    String.format("%.2f", center.z), CAMERA_HEIGHT, sync.phase(), event.getStage());
+        }
+    }
+
+    /**
+     * 对局期间挂一个透明"伪屏幕"：释放鼠标（显示光标、停止转视角），
+     * 世界与 HUD 照常渲染；对局结束（回到 WAITING 等阶段）自动关闭。
+     * 若玩家自行打开了其它界面（如物品栏），不与其争抢，关闭后下个 tick 再挂回。
+     */
+    @SubscribeEvent
+    public static void onClientTick(ClientTickEvent.Post event) {
+        Minecraft mc = Minecraft.getInstance();
+        boolean inView = inDuelView();
+        if (inView) {
+            if (mc.screen == null) {
+                mc.setScreen(new DuelHudScreen());
+                if (!screenLogged) {
+                    screenLogged = true;
+                    CardduelMod.LOGGER.info("[cardduel] 对局伪屏幕已打开（释放鼠标/停止转视角）");
+                }
+            }
+            // 兜底：把本地玩家的视线强制转向牌桌（带俯角）。
+            // 俯视相机在渲染阶段改写相机；这里同时修正玩家自身朝向，
+            // 即使渲染相机被其他因素干扰，第一人称视角也始终朝向牌桌。
+            faceTable(mc);
+        } else if (mc.screen instanceof DuelHudScreen) {
+            mc.setScreen(null);
+            cameraLogged = false;
+            screenLogged = false;
+            faceLogged = false;
+        }
+    }
+
+    /**
+     * 让本地玩家看向牌桌桌面中心（俯视角度，兼容任何相机失效场景）。
+     */
+    private static void faceTable(Minecraft mc) {
+        if (mc.player == null) {
+            return;
+        }
+        ClientboundDuelSyncPayload sync = ClientDuelState.get();
+        if (sync == null) {
+            return;
+        }
+        Vec3 target = tableCenter(sync).add(0.0, 1.0, 0.0);
+        Vec3 eye = mc.player.getEyePosition();
+        double dx = target.x - eye.x;
+        double dy = target.y - eye.y;
+        double dz = target.z - eye.z;
+        double horizontal = Math.sqrt(dx * dx + dz * dz);
+        if (horizontal < 1.0E-4) {
+            return;
+        }
+        float yaw = (float) Math.toDegrees(Math.atan2(-dx, dz));
+        float pitch = (float) Math.toDegrees(Math.atan2(-dy, horizontal));
+        mc.player.setYRot(yaw);
+        mc.player.setXRot(pitch);
+
+        if (!faceLogged) {
+            faceLogged = true;
+            CardduelMod.LOGGER.info("[cardduel] 玩家视线已转向牌桌：yaw={} pitch={} 目标=({}, {}, {})",
+                    String.format("%.1f", yaw), String.format("%.1f", pitch),
+                    String.format("%.2f", target.x), String.format("%.2f", target.y), String.format("%.2f", target.z));
+        }
     }
 
     @SubscribeEvent

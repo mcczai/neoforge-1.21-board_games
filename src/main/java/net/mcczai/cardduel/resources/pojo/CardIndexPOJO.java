@@ -24,6 +24,11 @@ public class CardIndexPOJO {
     @Nullable
     private String type;
 
+    /** 稀有度：common / uncommon / rare / epic（也接受中文：普通/罕见/稀有/传说），缺省视为 common */
+    @SerializedName("rarity")
+    @Nullable
+    private String rarity;
+
     @SerializedName("texture")
     @Nullable
     private ResourceLocation texture;
@@ -52,5 +57,12 @@ public class CardIndexPOJO {
 
     public String getType() {
         return type;
+    }
+
+    /**
+     * @return 稀有度 id；未填写时返回 "common"
+     */
+    public String getRarity() {
+        return rarity != null ? rarity : "common";
     }
 }

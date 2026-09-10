@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.redstone_pulse.name",
   "data": "default_pack:redstone_pulse_data",
   "stack_size": 1,
   "tooltip": "default_card.card.redstone_pulse.tooltip",
   "type": "mana",
+  "rarity": "common",
   "texture": "default_pack:redstone_pulse"
 }

@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.strength_potion.name",
   "data": "default_pack:strength_potion_data",
   "stack_size": 1,
   "tooltip": "default_card.card.strength_potion.tooltip",
   "type": "mana",
+  "rarity": "rare",
   "texture": "default_pack:strength_potion"
 }

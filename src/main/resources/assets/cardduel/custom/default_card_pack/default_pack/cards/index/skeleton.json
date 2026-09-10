@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.skeleton.name",
   "data": "default_pack:skeleton_data",
   "stack_size": 1,
   "tooltip": "default_card.card.skeleton.tooltip",
   "type": "summon",
+  "rarity": "common",
   "texture": "default_pack:skeleton"
 }

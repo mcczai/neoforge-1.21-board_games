@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.guardian.name",
   "data": "default_pack:guardian_data",
   "stack_size": 1,
   "tooltip": "default_card.card.guardian.tooltip",
   "type": "summon",
+  "rarity": "rare",
   "texture": "default_pack:guardian"
 }

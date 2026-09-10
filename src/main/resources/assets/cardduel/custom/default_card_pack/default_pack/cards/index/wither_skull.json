@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.wither_skull.name",
   "data": "default_pack:wither_skull_data",
   "stack_size": 1,
   "tooltip": "default_card.card.wither_skull.tooltip",
   "type": "mana",
+  "rarity": "rare",
   "texture": "default_pack:wither_skull"
 }

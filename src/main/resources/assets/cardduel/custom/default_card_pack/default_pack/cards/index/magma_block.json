@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.magma_block.name",
   "data": "default_pack:magma_block_data",
   "stack_size": 1,
   "tooltip": "default_card.card.magma_block.tooltip",
   "type": "trap",
+  "rarity": "common",
   "texture": "default_pack:magma_block"
 }

@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.bottle_o_enchanting.name",
   "data": "default_pack:bottle_o_enchanting_data",
   "stack_size": 1,
   "tooltip": "default_card.card.bottle_o_enchanting.tooltip",
   "type": "mana",
+  "rarity": "uncommon",
   "texture": "default_pack:bottle_o_enchanting"
 }

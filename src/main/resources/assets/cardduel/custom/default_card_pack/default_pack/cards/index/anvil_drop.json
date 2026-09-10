@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.anvil_drop.name",
   "data": "default_pack:anvil_drop_data",
   "stack_size": 1,
   "tooltip": "default_card.card.anvil_drop.tooltip",
   "type": "trap",
+  "rarity": "common",
   "texture": "default_pack:anvil_drop"
 }

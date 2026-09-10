@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.iron_golem.name",
   "data": "default_pack:iron_golem_data",
   "stack_size": 1,
   "tooltip": "default_card.card.iron_golem.tooltip",
   "type": "summon",
+  "rarity": "uncommon",
   "texture": "default_pack:iron_golem"
 }

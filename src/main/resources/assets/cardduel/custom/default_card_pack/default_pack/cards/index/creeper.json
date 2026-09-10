@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.creeper.name",
   "data": "default_pack:creeper_data",
   "stack_size": 1,
   "tooltip": "default_card.card.creeper.tooltip",
   "type": "summon",
+  "rarity": "uncommon",
   "texture": "default_pack:creeper"
 }

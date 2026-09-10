@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.cactus.name",
   "data": "default_pack:cactus_data",
   "stack_size": 1,
   "tooltip": "default_card.card.cactus.tooltip",
   "type": "trap",
+  "rarity": "common",
   "texture": "default_pack:cactus"
 }

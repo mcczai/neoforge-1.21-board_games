@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.wolf.name",
   "data": "default_pack:wolf_data",
   "stack_size": 1,
   "tooltip": "default_card.card.wolf.tooltip",
   "type": "summon",
+  "rarity": "rare",
   "texture": "default_pack:wolf"
 }

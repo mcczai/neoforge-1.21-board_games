@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.harming_potion.name",
   "data": "default_pack:harming_potion_data",
   "stack_size": 1,
   "tooltip": "default_card.card.harming_potion.tooltip",
   "type": "mana",
+  "rarity": "common",
   "texture": "default_pack:harming_potion"
 }

@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.ender_pearl.name",
   "data": "default_pack:ender_pearl_data",
   "stack_size": 1,
   "tooltip": "default_card.card.ender_pearl.tooltip",
   "type": "mana",
+  "rarity": "common",
   "texture": "default_pack:ender_pearl"
 }

@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.observer.name",
   "data": "default_pack:observer_data",
   "stack_size": 1,
   "tooltip": "default_card.card.observer.tooltip",
   "type": "trap",
+  "rarity": "rare",
   "texture": "default_pack:observer"
 }

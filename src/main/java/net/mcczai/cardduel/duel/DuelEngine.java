@@ -4,6 +4,7 @@ import net.mcczai.cardduel.API.CdAPI;
 import net.mcczai.cardduel.API.item.nbt.CardDataAccessor;
 import net.mcczai.cardduel.block.entity.DuelTableBlockEntity;
 import net.mcczai.cardduel.config.DuelConfig;
+import net.mcczai.cardduel.event.DuelSeatLock;
 import net.mcczai.cardduel.init.ModAttachments;
 import net.mcczai.cardduel.init.ModItem;
 import net.mcczai.cardduel.items.ICard;
@@ -81,9 +82,13 @@ public final class DuelEngine {
                 player.displayClientMessage(Component.translatable("cardduel.duel.host_seated"), false);
             }
             case SETUP, WAITING -> {
-                table.setGuest(player.getUUID());
-                player.setData(ModAttachments.DUEL_SEAT.get(), new DuelSeat(table.getBlockPos(), false));
-                player.displayClientMessage(Component.translatable("cardduel.duel.guest_seated"), false);
+                if (table.getGuestUuid() != null) {
+                    player.displayClientMessage(Component.translatable("cardduel.duel.table_full"), false);
+                } else {
+                    table.setGuest(player.getUUID());
+                    player.setData(ModAttachments.DUEL_SEAT.get(), new DuelSeat(table.getBlockPos(), false));
+                    player.displayClientMessage(Component.translatable("cardduel.duel.guest_seated"), false);
+                }
             }
             default -> {
             }
@@ -115,8 +120,9 @@ public final class DuelEngine {
             table.clearGuestSeat(player.getServer());
             table.resetTable();
         } else if (table.isGuest(player)) {
-            table.setGuest(null);
+            // 先取消牌组（此时仍是客人身份，getDataFor 才能命中），再清空座位
             table.cancelDeck(player);
+            table.setGuest(null);
         }
 
         player.removeData(ModAttachments.DUEL_SEAT.get());
@@ -137,7 +143,15 @@ public final class DuelEngine {
                 broadcast(table, Component.translatable("cardduel.duel.finish", playerName(table, winnerUuid)));
             }
             player.removeData(ModAttachments.DUEL_SEAT.get());
-            table.resetDuel();
+            if (table.isHost(player)) {
+                // 房主掉线：整桌解散（客人座位一并清理，回到 IDLE）
+                table.clearGuestSeat(player.getServer());
+                table.resetTable();
+            } else {
+                // 客人掉线：判房主胜，清空客人座位并回到 WAITING（房主可等新挑战者再开一局）
+                table.setGuest(null);
+                table.resetDuel();
+            }
             syncToPlayers(table);
         } else {
             handleLeave(player, table);
@@ -202,6 +216,10 @@ public final class DuelEngine {
 
         String firstName = hostFirst ? host.getGameProfile().getName() : guest.getGameProfile().getName();
         table.setPhase(DuelPhase.MULLIGAN);
+
+        // 开局时把双方传送到牌桌旁的座位：防止有人提交牌组后走远，开局后仍留在原地
+        DuelSeatLock.teleportToSeat(host, table);
+        DuelSeatLock.teleportToSeat(guest, table);
 
         broadcast(table, Component.translatable("cardduel.duel.start", firstName));
         broadcast(table, Component.translatable("cardduel.duel.mulligan_prompt"));
@@ -352,6 +370,23 @@ public final class DuelEngine {
         if (winnerUuid == null) {
             broadcast(table, Component.translatable("cardduel.duel.draw_game"));
         } else {
+            broadcast(table, Component.translatable("cardduel.duel.finish", playerName(table, winnerUuid)));
+        }
+        table.resetDuel();
+        syncToPlayers(table);
+    }
+
+    /**
+     * 认输（换牌阶段或对局中均可）：判对方获胜，清场并回到 WAITING（保留座位与上限，可直接下一局）。
+     */
+    public static void surrender(ServerPlayer player, DuelTableBlockEntity table) {
+        DuelPhase phase = table.getPhase();
+        if (phase != DuelPhase.MULLIGAN && phase != DuelPhase.PLAYING) {
+            return;
+        }
+        UUID winnerUuid = table.isHost(player) ? table.getGuestUuid() : table.getHostUuid();
+        broadcast(table, Component.translatable("cardduel.duel.surrender", player.getGameProfile().getName()));
+        if (winnerUuid != null) {
             broadcast(table, Component.translatable("cardduel.duel.finish", playerName(table, winnerUuid)));
         }
         table.resetDuel();
@@ -958,6 +993,9 @@ public final class DuelEngine {
         }
         DuelPlayerData data = table.getDataFor(player);
         if (data == null || data.isMulliganDone()) {
+            if (data != null) {
+                player.displayClientMessage(Component.translatable("cardduel.duel.mulligan_already"), false);
+            }
             return false;
         }
         Set<Integer> set = new HashSet<>(indices);
@@ -971,6 +1009,7 @@ public final class DuelEngine {
             ItemStack card = data.getHand().get(i);
             ICard access = ICard.getICardOrNull(card);
             if (access != null && DefaultAssets.COIN_CARD_ID.equals(access.getCardId(card))) {
+                player.displayClientMessage(Component.translatable("cardduel.duel.mulligan_coin"), false);
                 return false; // 硬币不可换
             }
         }
@@ -986,6 +1025,8 @@ public final class DuelEngine {
         }
 
         data.setMulliganDone(true);
+        // 反馈：告知本人已确认（换牌要双方都确认才进入对局，之前这里无任何提示）
+        player.displayClientMessage(Component.translatable("cardduel.duel.mulligan_wait"), false);
         checkMulliganComplete(table);
         syncToPlayers(table);
         return true;

@@ -1,5 +1,6 @@
 package net.mcczai.cardduel.items;
 
+import net.mcczai.cardduel.block.DuelTableBlock;
 import net.mcczai.cardduel.block.entity.DuelTableBlockEntity;
 import net.mcczai.cardduel.duel.DuelEngine;
 import net.mcczai.cardduel.init.ModBlocks;
@@ -51,7 +52,8 @@ public class CardBagItem extends Item {
         if (!state.is(ModBlocks.DUELTABLE_BLOCK.get())) {
             return InteractionResult.PASS;
         }
-        if (!(level.getBlockEntity(context.getClickedPos()) instanceof DuelTableBlockEntity table)) {
+        DuelTableBlockEntity table = DuelTableBlock.resolvePrimary(level, context.getClickedPos());
+        if (table == null) {
             return InteractionResult.PASS;
         }
 

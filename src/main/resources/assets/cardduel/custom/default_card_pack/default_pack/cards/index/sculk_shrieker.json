@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.sculk_shrieker.name",
   "data": "default_pack:sculk_shrieker_data",
   "stack_size": 1,
   "tooltip": "default_card.card.sculk_shrieker.tooltip",
   "type": "trap",
+  "rarity": "uncommon",
   "texture": "default_pack:sculk_shrieker"
 }

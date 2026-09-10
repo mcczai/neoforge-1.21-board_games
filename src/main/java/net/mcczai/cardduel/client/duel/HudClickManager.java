@@ -10,6 +10,9 @@ import net.mcczai.cardduel.network.payload.ServerboundAttackPayload;
 import net.mcczai.cardduel.network.payload.ServerboundEndTurnPayload;
 import net.mcczai.cardduel.network.payload.ServerboundMulliganPayload;
 import net.mcczai.cardduel.network.payload.ServerboundPlayCardPayload;
+import net.mcczai.cardduel.network.payload.ServerboundSurrenderPayload;
+import net.mcczai.cardduel.resources.DefaultAssets;
+import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.Rect2i;
@@ -17,6 +20,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -48,18 +52,37 @@ public class HudClickManager {
         return new Rect2i(screenW - BTN_W - BTN_MARGIN, screenH - BTN_H - BTN_MARGIN, BTN_W, BTN_H);
     }
 
+    /** 认输按钮：右下、"结束回合/确认换牌"按钮的正上方 */
+    public static Rect2i surrenderButtonRect(int screenW, int screenH) {
+        return new Rect2i(screenW - BTN_W - BTN_MARGIN, screenH - BTN_H - BTN_MARGIN - BTN_H - 4, BTN_W, BTN_H);
+    }
+
     /**
-     * 右下按钮：PLAYING 显示"结束回合"（非己方回合置灰）；MULLIGAN 显示"确认换牌"。
+     * 右下按钮：PLAYING 显示"结束回合"（非己方回合置灰）；MULLIGAN 显示"确认换牌"（已确认后置灰并提示等待对手）。
      */
     public static void renderEndTurnButton(GuiGraphics g, boolean myTurn, boolean mulliganPhase) {
         Minecraft mc = Minecraft.getInstance();
         Rect2i rect = endTurnButtonRect(g.guiWidth(), g.guiHeight());
-        int color = mulliganPhase ? 0xFFF9A825 : (myTurn ? 0xFF43A047 : 0xFF616161);
+        boolean waiting = mulliganPhase && DuelInteraction.isMulliganDone();
+        int color = waiting ? 0xFF616161 : (mulliganPhase ? 0xFFF9A825 : (myTurn ? 0xFF43A047 : 0xFF616161));
         g.fill(rect.getX(), rect.getY(), rect.getX() + rect.getWidth(), rect.getY() + rect.getHeight(), color);
-        Component label = mulliganPhase
-                ? Component.translatable("cardduel.hud.mulligan_confirm")
-                : Component.translatable("cardduel.hud.end_turn");
+        Component label = waiting
+                ? Component.translatable("cardduel.hud.mulligan_wait")
+                : (mulliganPhase
+                        ? Component.translatable("cardduel.hud.mulligan_confirm")
+                        : Component.translatable("cardduel.hud.end_turn"));
         g.drawCenteredString(mc.font, label, rect.getX() + rect.getWidth() / 2, rect.getY() + (BTN_H - 8) / 2, 0xFFFFFFFF);
+    }
+
+    /**
+     * 认输按钮（换牌阶段与对局中显示）。
+     */
+    public static void renderSurrenderButton(GuiGraphics g) {
+        Minecraft mc = Minecraft.getInstance();
+        Rect2i rect = surrenderButtonRect(g.guiWidth(), g.guiHeight());
+        g.fill(rect.getX(), rect.getY(), rect.getX() + rect.getWidth(), rect.getY() + rect.getHeight(), 0xFFC62828);
+        g.drawCenteredString(mc.font, Component.translatable("cardduel.hud.surrender"),
+                rect.getX() + rect.getWidth() / 2, rect.getY() + (BTN_H - 8) / 2, 0xFFFFFFFF);
     }
 
     @SubscribeEvent
@@ -68,7 +91,7 @@ public class HudClickManager {
             return; // 仅处理鼠标左键按下
         }
         Minecraft mc = Minecraft.getInstance();
-        if (mc.screen != null || mc.player == null || mc.level == null) {
+        if ((mc.screen != null && !(mc.screen instanceof DuelHudScreen)) || mc.player == null || mc.level == null) {
             return;
         }
         ClientboundDuelSyncPayload sync = ClientDuelState.get();
@@ -83,13 +106,24 @@ public class HudClickManager {
         boolean myTurn = mc.player.getUUID().equals(sync.activeUuid());
         boolean mulligan = "MULLIGAN".equals(sync.phase());
 
-        // 1. 右下按钮
+        // 1. 认输按钮（换牌与对局中都可认输）
+        if (surrenderButtonRect(sw, sh).contains((int) mx, (int) my)) {
+            DuelInteraction.clear();
+            PacketDistributor.sendToServer(new ServerboundSurrenderPayload());
+            event.setCanceled(true);
+            return;
+        }
+
+        // 2. 右下按钮（结束回合 / 确认换牌）
         Rect2i btn = endTurnButtonRect(sw, sh);
         if (btn.contains((int) mx, (int) my)) {
             if (mulligan) {
+                // 不做客户端拦截（重复确认由服务端 isMulliganDone 兜底去重）：
+                // 一旦客户端状态残留（如上一局遗留的"已确认"），拦截会导致永远发不出确认包。
                 PacketDistributor.sendToServer(new ServerboundMulliganPayload(
                         new ArrayList<>(DuelInteraction.getMulliganSelection())));
                 DuelInteraction.clearMulligan();
+                DuelInteraction.setMulliganDone(true);
             } else if (myTurn) {
                 PacketDistributor.sendToServer(new ServerboundEndTurnPayload());
             }
@@ -97,13 +131,23 @@ public class HudClickManager {
             return;
         }
 
-        // 2. 手牌
+        // 3. 手牌
         int handIndex = DuelHandHud.handIndexAt(mx, my, ClientDuelHand.get().size(), sw, sh);
         if (handIndex >= 0) {
             if (mulligan) {
-                DuelInteraction.toggleMulligan(handIndex);
+                // 已确认换牌后不再允许改选；硬币卡不可选（服务端同样会拒绝，这里直接忽略点击）
+                if (!DuelInteraction.isMulliganDone()) {
+                    ItemStack clicked = ClientDuelHand.get().get(handIndex);
+                    ICard access = ICard.getICardOrNull(clicked);
+                    boolean isCoin = access != null
+                            && DefaultAssets.COIN_CARD_ID.equals(access.getCardId(clicked));
+                    if (!isCoin) {
+                        DuelInteraction.toggleMulligan(handIndex);
+                    }
+                }
             } else if (myTurn) {
-                DuelInteraction.toggleHand(handIndex);
+                // 按下手牌进入拖拽：松开时拖到己方半场即打出，原地松开即按旧流程选中
+                DuelInteraction.startDragHand(handIndex);
             }
             event.setCanceled(true);
             return;
@@ -119,6 +163,62 @@ public class HudClickManager {
 
         // 4. 空白处：清空选中
         DuelInteraction.clear();
+    }
+
+    /**
+     * 拖拽结算：松开鼠标时按落点决定 打出 / 攻击 / 选中。
+     * 落点在牌桌上复用 handleTableClick 的整套分支；落点不在桌上则回退为旧的点选流程。
+     */
+    @SubscribeEvent
+    public static void onMouseRelease(InputEvent.MouseButton.Post event) {
+        if (event.getButton() != 0 || event.getAction() != 0) {
+            return;
+        }
+        Minecraft mc = Minecraft.getInstance();
+        if ((mc.screen != null && !(mc.screen instanceof DuelHudScreen)) || mc.player == null || mc.level == null) {
+            return;
+        }
+        ClientboundDuelSyncPayload sync = ClientDuelState.get();
+        if (sync == null || !DuelCameraManager.isActivePhase(sync.phase())) {
+            return;
+        }
+        if ("MULLIGAN".equals(sync.phase()) || !DuelInteraction.isDragging()) {
+            return;
+        }
+        boolean myTurn = mc.player.getUUID().equals(sync.activeUuid());
+
+        int sw = mc.getWindow().getGuiScaledWidth();
+        int sh = mc.getWindow().getGuiScaledHeight();
+        double mx = mc.mouseHandler.xpos() * sw / (double) mc.getWindow().getScreenWidth();
+        double my = mc.mouseHandler.ypos() * sh / (double) mc.getWindow().getScreenHeight();
+
+        int hand = DuelInteraction.getDraggingHand();
+        int board = DuelInteraction.getDraggingBoard();
+        SlotHit hit = hitTable(mc, sync, mx, my);
+        boolean isHost = mc.player.getUUID().equals(sync.hostUuid());
+
+        if (hand >= 0) {
+            if (hit != null) {
+                // 拖到牌桌：按卡牌类型走打出分支（召唤站场/魔法结算/装备附着/陷阱等）
+                DuelInteraction.selectHand(hand);
+                handleTableClick(mc, sync, hit, myTurn, false);
+                DuelInteraction.clear();
+            } else {
+                // 原地松开：按旧的点选流程选中手牌
+                DuelInteraction.toggleHand(hand);
+            }
+        } else if (board >= 0) {
+            if (hit != null && hit.hostHalf() != isHost) {
+                // 拖到对方半场：攻击（有卡目标打目标，点空处打脸）
+                DuelInteraction.selectBoard(board);
+                handleTableClick(mc, sync, hit, myTurn, false);
+                DuelInteraction.clear();
+            } else {
+                // 原地/己方半场松开：选中召唤物（后续点对方目标攻击）
+                DuelInteraction.toggleBoard(board);
+            }
+        }
+        DuelInteraction.stopDrag();
     }
 
     /**
@@ -198,7 +298,8 @@ public class HudClickManager {
             if (myData.getBoard()[hit.slot()].isEmpty()) {
                 DuelInteraction.clear();
             } else {
-                DuelInteraction.toggleBoard(hit.slot());
+                // 按下己方召唤物：进入拖拽，松开时拖到对方半场即攻击，原地松开即选中
+                DuelInteraction.startDragBoard(hit.slot());
             }
         } else {
             // 对方半场
@@ -221,20 +322,26 @@ public class HudClickManager {
     }
 
     /**
-     * 屏幕坐标 → 桌面平面（俯视相机透视精确映射）→ 半场与槽位。
+     * 屏幕坐标 → 桌面平面（按当前真实相机射线求交）→ 半场与槽位。
+     * 不依赖"俯视相机"假设：相机处于任意位置/角度都能正确命中桌面。
      */
     @Nullable
-    private static SlotHit hitTable(Minecraft mc, ClientboundDuelSyncPayload sync, double mouseX, double mouseY) {
+    public static SlotHit hitTable(Minecraft mc, ClientboundDuelSyncPayload sync, double mouseX, double mouseY) {
         Direction facing = Direction.byName(sync.facing());
         if (facing == null) {
             return null;
         }
         int dirZ = facing == Direction.NORTH ? -1 : 1;
         BlockPos bePos = sync.tablePos();
-        double centerX = bePos.getX() + 0.5;
-        double centerZ = bePos.getZ() + 0.5 + dirZ * 0.5;
-        double camY = bePos.getY() + 0.5 + DuelCameraManager.CAMERA_HEIGHT;
-        double t = camY - (bePos.getY() + 1.0);
+        double tableTopY = bePos.getY() + 1.0;
+
+        Camera cam = mc.gameRenderer.getMainCamera();
+        Vec3 pos = cam.getPosition();
+        Vec3 look = new Vec3(cam.getLookVector());
+        if (look.y >= -0.01 || pos.y <= tableTopY) {
+            // 视线接近水平或相机低于桌面：不可能命中桌面
+            return null;
+        }
 
         int sw = mc.getWindow().getGuiScaledWidth();
         int sh = mc.getWindow().getGuiScaledHeight();
@@ -244,11 +351,18 @@ public class HudClickManager {
         double ndcX = mouseX / sw * 2 - 1;
         double ndcY = mouseY / sh * 2 - 1;
 
-        double worldX = centerX + ndcX * t * tanY * aspect;
-        double worldZ = centerZ - ndcY * t * tanY;
+        Vec3 right = new Vec3(cam.getLeftVector()).scale(-1.0);
+        Vec3 dir = look
+                .add(right.scale(ndcX * tanY * aspect))
+                .add(new Vec3(cam.getUpVector()).scale(ndcY * tanY))
+                .normalize();
 
-        double localX = worldX - bePos.getX();
-        double localZ = worldZ - bePos.getZ();
+        double t = (tableTopY - pos.y) / dir.y;
+        if (t < 0) {
+            return null;
+        }
+        double localX = (pos.x + dir.x * t) - bePos.getX();
+        double localZ = (pos.z + dir.z * t) - bePos.getZ();
 
         double hostZ = 0.5 + dirZ * 0.25;
         double guestZ = 0.5 + dirZ * 0.75;

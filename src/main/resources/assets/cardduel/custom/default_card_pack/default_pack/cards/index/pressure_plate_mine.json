@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.pressure_plate_mine.name",
   "data": "default_pack:pressure_plate_mine_data",
   "stack_size": 1,
   "tooltip": "default_card.card.pressure_plate_mine.tooltip",
   "type": "trap",
+  "rarity": "common",
   "texture": "default_pack:pressure_plate_mine"
 }

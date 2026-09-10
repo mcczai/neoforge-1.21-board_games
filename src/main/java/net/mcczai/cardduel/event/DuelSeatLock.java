@@ -89,6 +89,23 @@ public class DuelSeatLock {
     }
 
     /**
+     * 立即把玩家传送到其座位锚点并面向牌桌（开局时调用一次；对局中的持续锁定见 onPlayerTick）。
+     */
+    public static void teleportToSeat(ServerPlayer player, DuelTableBlockEntity table) {
+        Vec3 anchor = anchorFor(player, table);
+        if (anchor == null) {
+            return;
+        }
+        // 面朝牌桌中心（偏航角按世界坐标计算，微微俯视桌面）
+        double dx = table.getBlockPos().getCenter().x - anchor.x;
+        double dz = table.getBlockPos().getCenter().z - anchor.z;
+        float yaw = (float) Math.toDegrees(Math.atan2(-dx, dz));
+        player.teleportTo(player.serverLevel(), anchor.x, anchor.y, anchor.z, yaw, 15.0F);
+        player.setDeltaMovement(Vec3.ZERO);
+        player.fallDistance = 0.0F;
+    }
+
+    /**
      * 座位锚点：房主在双桌 facing 反向外侧，客人在 facing 外侧（离桌 1.5 米）。
      */
     private static Vec3 anchorFor(ServerPlayer player, DuelTableBlockEntity table) {

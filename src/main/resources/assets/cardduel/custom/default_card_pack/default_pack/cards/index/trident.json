@@ -1,8 +1,9 @@
-{
+﻿{
   "name": "default_card.card.trident.name",
   "data": "default_pack:trident_data",
   "stack_size": 1,
   "tooltip": "default_card.card.trident.tooltip",
   "type": "equip",
+  "rarity": "uncommon",
   "texture": "default_pack:trident"
 }
