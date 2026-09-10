@@ -1,0 +1,9 @@
+{
+  "hp": 2,
+  "mp": 3,
+  "atk": 1,
+  "description": "default_card.card.strength_potion.description",
+  "type": "mana",
+  "skill": "buff_atk_3",
+  "tribe": "steve"
+}

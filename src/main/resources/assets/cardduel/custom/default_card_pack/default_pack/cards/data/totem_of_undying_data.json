@@ -1,0 +1,9 @@
+{
+  "hp": 4,
+  "mp": 6,
+  "atk": 1,
+  "description": "default_card.card.totem_of_undying.description",
+  "type": "mana",
+  "skill": "totem_protect",
+  "tribe": "steve"
+}

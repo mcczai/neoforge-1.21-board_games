@@ -1,0 +1,9 @@
+{
+  "hp": 2,
+  "mp": 3,
+  "atk": 2,
+  "description": "default_card.card.wither_rose.description",
+  "type": "trap",
+  "skill": "secret_wither",
+  "tribe": "nether"
+}

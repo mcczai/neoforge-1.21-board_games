@@ -1,0 +1,9 @@
+{
+  "hp": 2,
+  "mp": 2,
+  "atk": 2,
+  "description": "default_card.card.fire_charge.description",
+  "type": "mana",
+  "skill": "fire_3",
+  "tribe": "nether"
+}

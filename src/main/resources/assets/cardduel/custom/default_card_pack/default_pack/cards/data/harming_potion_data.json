@@ -1,0 +1,9 @@
+{
+  "hp": 2,
+  "mp": 2,
+  "atk": 2,
+  "description": "default_card.card.harming_potion.description",
+  "type": "mana",
+  "skill": "harm_3",
+  "tribe": "steve"
+}

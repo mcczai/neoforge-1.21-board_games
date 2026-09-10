@@ -1,0 +1,9 @@
+{
+  "hp": 2,
+  "mp": 4,
+  "atk": 2,
+  "description": "default_card.card.sculk_shrieker.description",
+  "type": "trap",
+  "skill": "secret_sculk",
+  "tribe": "void"
+}

@@ -1,0 +1,9 @@
+{
+  "hp": 8,
+  "mp": 9,
+  "atk": 7,
+  "description": "default_card.card.ender_dragon.description",
+  "type": "summon",
+  "skill": "dragon_breath",
+  "tribe": "end"
+}

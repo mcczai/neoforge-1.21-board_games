@@ -1,0 +1,9 @@
+{
+  "hp": 1,
+  "mp": 1,
+  "atk": 1,
+  "description": "default_card.card.bee.description",
+  "type": "summon",
+  "skill": "bee_sting",
+  "tribe": "nature"
+}

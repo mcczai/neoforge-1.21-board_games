@@ -1,0 +1,8 @@
+{
+  "name": "default_card.card.blaze.name",
+  "data": "default_pack:blaze_data",
+  "stack_size": 1,
+  "tooltip": "default_card.card.blaze.tooltip",
+  "type": "summon",
+  "texture": "default_pack:blaze"
+}

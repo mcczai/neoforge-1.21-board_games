@@ -1,0 +1,9 @@
+{
+  "hp": 7,
+  "mp": 5,
+  "atk": 3,
+  "description": "default_card.card.iron_golem.description",
+  "type": "summon",
+  "skill": "taunt",
+  "tribe": "nature"
+}

@@ -1,0 +1,9 @@
+{
+  "hp": 1,
+  "mp": 2,
+  "atk": 3,
+  "description": "default_card.card.ender_pearl.description",
+  "type": "mana",
+  "skill": "pearl_strike",
+  "tribe": "end"
+}

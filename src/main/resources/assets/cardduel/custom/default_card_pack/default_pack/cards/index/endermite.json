@@ -1,0 +1,8 @@
+{
+  "name": "default_card.card.endermite.name",
+  "data": "default_pack:endermite_data",
+  "stack_size": 1,
+  "tooltip": "default_card.card.endermite.tooltip",
+  "type": "summon",
+  "texture": "default_pack:endermite"
+}

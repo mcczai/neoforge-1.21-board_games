@@ -1,0 +1,9 @@
+{
+  "hp": 2,
+  "mp": 2,
+  "atk": 1,
+  "description": "default_card.card.speed_potion.description",
+  "type": "mana",
+  "skill": "buff_all_atk_1",
+  "tribe": "steve"
+}

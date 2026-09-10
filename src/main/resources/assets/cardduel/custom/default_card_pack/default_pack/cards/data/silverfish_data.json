@@ -1,0 +1,9 @@
+{
+  "hp": 1,
+  "mp": 1,
+  "atk": 1,
+  "description": "default_card.card.silverfish.description",
+  "type": "summon",
+  "skill": "silverfish_growth",
+  "tribe": "nature"
+}

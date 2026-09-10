@@ -1,0 +1,8 @@
+{
+  "name": "default_card.card.splash_healing.name",
+  "data": "default_pack:splash_healing_data",
+  "stack_size": 1,
+  "tooltip": "default_card.card.splash_healing.tooltip",
+  "type": "mana",
+  "texture": "default_pack:splash_healing"
+}

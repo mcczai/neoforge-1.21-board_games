@@ -1,0 +1,8 @@
+{
+  "name": "default_card.card.speed_potion.name",
+  "data": "default_pack:speed_potion_data",
+  "stack_size": 1,
+  "tooltip": "default_card.card.speed_potion.tooltip",
+  "type": "mana",
+  "texture": "default_pack:speed_potion"
+}

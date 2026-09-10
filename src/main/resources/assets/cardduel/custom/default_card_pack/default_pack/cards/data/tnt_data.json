@@ -1,0 +1,9 @@
+{
+  "hp": 2,
+  "mp": 3,
+  "atk": 3,
+  "description": "default_card.card.tnt.description",
+  "type": "trap",
+  "skill": "secret_tnt",
+  "tribe": "redstone"
+}

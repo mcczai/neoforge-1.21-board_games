@@ -1,0 +1,9 @@
+{
+  "hp": 3,
+  "mp": 3,
+  "atk": 2,
+  "description": "default_card.card.blaze.description",
+  "type": "summon",
+  "skill": "blaze_barrage",
+  "tribe": "nether"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "default_card.card.bee.name",
+  "data": "default_pack:bee_data",
+  "stack_size": 1,
+  "tooltip": "default_card.card.bee.tooltip",
+  "type": "summon",
+  "texture": "default_pack:bee"
+}

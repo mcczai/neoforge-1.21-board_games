@@ -1,0 +1,9 @@
+{
+  "hp": 2,
+  "mp": 1,
+  "atk": 1,
+  "description": "default_card.card.redstone_pulse.description",
+  "type": "mana",
+  "skill": "mana_1",
+  "tribe": "redstone"
+}

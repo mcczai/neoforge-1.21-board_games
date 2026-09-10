@@ -1,0 +1,9 @@
+{
+  "hp": 2,
+  "mp": 5,
+  "atk": 5,
+  "description": "default_card.card.mace.description",
+  "type": "equip",
+  "skill": "equip_atk_5",
+  "tribe": "steve"
+}

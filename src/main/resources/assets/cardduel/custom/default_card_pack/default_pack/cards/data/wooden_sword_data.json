@@ -1,0 +1,9 @@
+{
+  "hp": 2,
+  "mp": 1,
+  "atk": 1,
+  "description": "default_card.card.wooden_sword.description",
+  "type": "equip",
+  "skill": "equip_atk_1",
+  "tribe": "steve"
+}

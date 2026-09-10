@@ -1,0 +1,8 @@
+{
+  "name": "default_card.card.zombie.name",
+  "data": "default_pack:zombie_data",
+  "stack_size": 1,
+  "tooltip": "default_card.card.zombie.tooltip",
+  "type": "summon",
+  "texture": "default_pack:zombie"
+}

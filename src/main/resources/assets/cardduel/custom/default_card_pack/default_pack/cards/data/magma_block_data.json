@@ -1,0 +1,9 @@
+{
+  "hp": 2,
+  "mp": 2,
+  "atk": 1,
+  "description": "default_card.card.magma_block.description",
+  "type": "trap",
+  "skill": "secret_magma",
+  "tribe": "nether"
+}

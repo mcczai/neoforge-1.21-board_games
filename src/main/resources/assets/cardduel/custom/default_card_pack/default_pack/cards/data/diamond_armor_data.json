@@ -1,0 +1,9 @@
+{
+  "hp": 6,
+  "mp": 4,
+  "atk": 1,
+  "description": "default_card.card.diamond_armor.description",
+  "type": "equip",
+  "skill": "equip_taunt",
+  "tribe": "steve"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "default_card.card.vex.name",
+  "data": "default_pack:vex_data",
+  "stack_size": 1,
+  "tooltip": "default_card.card.vex.tooltip",
+  "type": "summon",
+  "texture": "default_pack:vex"
+}

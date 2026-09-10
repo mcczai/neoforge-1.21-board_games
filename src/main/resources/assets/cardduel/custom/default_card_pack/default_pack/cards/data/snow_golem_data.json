@@ -1,0 +1,9 @@
+{
+  "hp": 3,
+  "mp": 2,
+  "atk": 1,
+  "description": "default_card.card.snow_golem.description",
+  "type": "summon",
+  "skill": "taunt",
+  "tribe": "nature"
+}

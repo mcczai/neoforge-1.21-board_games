@@ -1,0 +1,9 @@
+{
+  "hp": 6,
+  "mp": 6,
+  "atk": 5,
+  "description": "default_card.card.ravager.description",
+  "type": "summon",
+  "skill": "ravager_charge",
+  "tribe": "nature"
+}

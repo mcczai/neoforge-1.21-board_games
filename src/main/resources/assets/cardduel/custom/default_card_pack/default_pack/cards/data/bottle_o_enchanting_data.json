@@ -1,0 +1,9 @@
+{
+  "hp": 2,
+  "mp": 3,
+  "atk": 1,
+  "description": "default_card.card.bottle_o_enchanting.description",
+  "type": "mana",
+  "skill": "draw_2",
+  "tribe": "steve"
+}

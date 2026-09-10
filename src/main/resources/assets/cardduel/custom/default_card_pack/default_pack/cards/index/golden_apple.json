@@ -1,0 +1,8 @@
+{
+  "name": "default_card.card.golden_apple.name",
+  "data": "default_pack:golden_apple_data",
+  "stack_size": 1,
+  "tooltip": "default_card.card.golden_apple.tooltip",
+  "type": "mana",
+  "texture": "default_pack:golden_apple"
+}

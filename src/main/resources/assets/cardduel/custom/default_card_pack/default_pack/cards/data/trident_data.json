@@ -1,0 +1,9 @@
+{
+  "hp": 2,
+  "mp": 4,
+  "atk": 3,
+  "description": "default_card.card.trident.description",
+  "type": "equip",
+  "skill": "equip_trident",
+  "tribe": "nature"
+}

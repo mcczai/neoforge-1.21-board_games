@@ -1,0 +1,9 @@
+{
+  "hp": 2,
+  "mp": 4,
+  "atk": 3,
+  "description": "default_card.card.lava_bucket.description",
+  "type": "mana",
+  "skill": "lava_5",
+  "tribe": "nether"
+}

@@ -1,0 +1,9 @@
+{
+  "hp": 2,
+  "mp": 3,
+  "atk": 3,
+  "description": "default_card.card.phantom.description",
+  "type": "summon",
+  "skill": "phantom_dive",
+  "tribe": "void"
+}

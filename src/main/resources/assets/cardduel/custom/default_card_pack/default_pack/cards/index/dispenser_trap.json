@@ -1,0 +1,8 @@
+{
+  "name": "default_card.card.dispenser_trap.name",
+  "data": "default_pack:dispenser_trap_data",
+  "stack_size": 1,
+  "tooltip": "default_card.card.dispenser_trap.tooltip",
+  "type": "trap",
+  "texture": "default_pack:dispenser_trap"
+}

@@ -1,0 +1,9 @@
+{
+  "hp": 8,
+  "mp": 8,
+  "atk": 6,
+  "description": "default_card.card.warden.description",
+  "type": "summon",
+  "skill": "warden_sonic",
+  "tribe": "void"
+}

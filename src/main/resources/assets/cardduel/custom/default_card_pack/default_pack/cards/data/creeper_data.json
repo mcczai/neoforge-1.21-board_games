@@ -1,0 +1,9 @@
+{
+  "hp": 5,
+  "mp": 3,
+  "atk": 1,
+  "description": "default_card.card.creeper.description",
+  "type": "summon",
+  "skill": "creeper_explosion",
+  "tribe": "nature"
+}

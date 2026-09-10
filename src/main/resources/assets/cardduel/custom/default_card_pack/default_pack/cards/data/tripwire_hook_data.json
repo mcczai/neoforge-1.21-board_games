@@ -1,0 +1,9 @@
+{
+  "hp": 2,
+  "mp": 2,
+  "atk": 1,
+  "description": "default_card.card.tripwire_hook.description",
+  "type": "trap",
+  "skill": "secret_freeze",
+  "tribe": "redstone"
+}

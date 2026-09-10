@@ -1,0 +1,9 @@
+{
+  "hp": 3,
+  "mp": 1,
+  "atk": 1,
+  "description": "default_card.card.healing_potion.description",
+  "type": "mana",
+  "skill": "heal_3",
+  "tribe": "steve"
+}

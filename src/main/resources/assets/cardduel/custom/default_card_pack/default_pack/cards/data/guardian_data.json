@@ -1,0 +1,9 @@
+{
+  "hp": 6,
+  "mp": 4,
+  "atk": 3,
+  "description": "default_card.card.guardian.description",
+  "type": "summon",
+  "skill": "taunt",
+  "tribe": "nature"
+}

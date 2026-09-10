@@ -1,0 +1,9 @@
+{
+  "hp": 5,
+  "mp": 5,
+  "atk": 3,
+  "description": "default_card.card.shulker.description",
+  "type": "summon",
+  "skill": "shulker_levitate",
+  "tribe": "end"
+}

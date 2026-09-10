@@ -1,0 +1,9 @@
+{
+  "hp": 1,
+  "mp": 1,
+  "atk": 2,
+  "description": "default_card.card.small_zombie.description",
+  "type": "summon",
+  "skill": "none",
+  "tribe": "nature"
+}

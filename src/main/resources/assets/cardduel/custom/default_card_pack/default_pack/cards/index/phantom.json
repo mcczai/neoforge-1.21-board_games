@@ -1,0 +1,8 @@
+{
+  "name": "default_card.card.phantom.name",
+  "data": "default_pack:phantom_data",
+  "stack_size": 1,
+  "tooltip": "default_card.card.phantom.tooltip",
+  "type": "summon",
+  "texture": "default_pack:phantom"
+}

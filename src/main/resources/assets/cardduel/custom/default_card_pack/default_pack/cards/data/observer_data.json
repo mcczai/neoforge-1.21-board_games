@@ -1,0 +1,9 @@
+{
+  "hp": 2,
+  "mp": 2,
+  "atk": 1,
+  "description": "default_card.card.observer.description",
+  "type": "trap",
+  "skill": "secret_draw",
+  "tribe": "redstone"
+}

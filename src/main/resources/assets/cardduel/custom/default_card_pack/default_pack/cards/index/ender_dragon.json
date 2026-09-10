@@ -1,0 +1,8 @@
+{
+  "name": "default_card.card.ender_dragon.name",
+  "data": "default_pack:ender_dragon_data",
+  "stack_size": 1,
+  "tooltip": "default_card.card.ender_dragon.tooltip",
+  "type": "summon",
+  "texture": "default_pack:ender_dragon"
+}

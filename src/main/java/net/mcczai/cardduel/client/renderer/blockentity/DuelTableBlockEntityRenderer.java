@@ -37,18 +37,18 @@ public class DuelTableBlockEntityRenderer implements BlockEntityRenderer<DuelTab
     /** 卡面高度（桌面上方一点，避免 z-fighting） */
     private static final float CARD_Y = 1.01F;
 
-    // 牌组展示（9×3，限 27 张）
+    // 牌组展示（9×3，限 27 张）——卡面贴图为 48×64（3:4），长宽比必须一致否则预览会被挤扁
     private static final int COLUMNS = 9;
     private static final int ROWS = 3;
     private static final float DECK_W = 2.4F / 16F;
-    private static final float DECK_H = 4.2F / 16F;
+    private static final float DECK_H = 3.2F / 16F;   // 2.4 : 3.2 = 3 : 4，与卡面贴图 48:64 对齐
     private static final float DECK_GAP_X = 0.25F / 16F;
     private static final float DECK_GAP_Z = 0.3F / 16F;
 
-    // 战场槽位卡（每方 7 张）
+    // 战场槽位卡（每方 7 张）——同样按 3:4 对齐贴图
     private static final int BOARD_SLOTS = 7;
     private static final float BOARD_W = 2.6F / 16F;
-    private static final float BOARD_H = 3.6F / 16F;
+    private static final float BOARD_H = 3.4667F / 16F;  // 2.6 : 3.4667 = 3 : 4
     private static final float BOARD_GAP = 0.3F / 16F;
 
     public DuelTableBlockEntityRenderer(BlockEntityRendererProvider.Context context) {

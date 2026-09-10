@@ -1,0 +1,9 @@
+{
+  "hp": 3,
+  "mp": 3,
+  "atk": 1,
+  "description": "default_card.card.splash_healing.description",
+  "type": "mana",
+  "skill": "heal_all_2",
+  "tribe": "steve"
+}

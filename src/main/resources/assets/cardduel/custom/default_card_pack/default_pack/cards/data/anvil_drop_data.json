@@ -1,0 +1,9 @@
+{
+  "hp": 2,
+  "mp": 2,
+  "atk": 3,
+  "description": "default_card.card.anvil_drop.description",
+  "type": "trap",
+  "skill": "secret_arrow",
+  "tribe": "redstone"
+}

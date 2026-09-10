@@ -1,0 +1,9 @@
+{
+  "hp": 2,
+  "mp": 3,
+  "atk": 2,
+  "description": "default_card.card.dispenser_trap.description",
+  "type": "trap",
+  "skill": "secret_dispenser",
+  "tribe": "redstone"
+}

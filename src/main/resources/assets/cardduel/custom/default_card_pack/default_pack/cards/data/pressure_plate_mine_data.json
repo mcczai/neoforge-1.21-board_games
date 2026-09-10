@@ -1,0 +1,9 @@
+{
+  "hp": 2,
+  "mp": 1,
+  "atk": 2,
+  "description": "default_card.card.pressure_plate_mine.description",
+  "type": "trap",
+  "skill": "secret_mine",
+  "tribe": "redstone"
+}

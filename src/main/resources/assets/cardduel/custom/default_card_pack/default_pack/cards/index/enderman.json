@@ -1,0 +1,8 @@
+{
+  "name": "default_card.card.enderman.name",
+  "data": "default_pack:enderman_data",
+  "stack_size": 1,
+  "tooltip": "default_card.card.enderman.tooltip",
+  "type": "summon",
+  "texture": "default_pack:enderman"
+}

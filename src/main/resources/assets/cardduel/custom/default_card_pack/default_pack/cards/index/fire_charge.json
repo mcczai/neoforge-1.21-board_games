@@ -1,0 +1,8 @@
+{
+  "name": "default_card.card.fire_charge.name",
+  "data": "default_pack:fire_charge_data",
+  "stack_size": 1,
+  "tooltip": "default_card.card.fire_charge.tooltip",
+  "type": "mana",
+  "texture": "default_pack:fire_charge"
+}

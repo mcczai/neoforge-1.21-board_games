@@ -1,0 +1,8 @@
+{
+  "name": "default_card.card.shield.name",
+  "data": "default_pack:shield_data",
+  "stack_size": 1,
+  "tooltip": "default_card.card.shield.tooltip",
+  "type": "equip",
+  "texture": "default_pack:shield"
+}

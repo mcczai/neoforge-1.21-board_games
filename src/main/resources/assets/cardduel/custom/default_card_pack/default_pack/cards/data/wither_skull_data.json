@@ -1,0 +1,9 @@
+{
+  "hp": 1,
+  "mp": 4,
+  "atk": 3,
+  "description": "default_card.card.wither_skull.description",
+  "type": "mana",
+  "skill": "aoe_enemy_2",
+  "tribe": "nether"
+}

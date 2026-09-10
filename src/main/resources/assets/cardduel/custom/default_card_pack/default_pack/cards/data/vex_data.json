@@ -1,0 +1,9 @@
+{
+  "hp": 1,
+  "mp": 3,
+  "atk": 3,
+  "description": "default_card.card.vex.description",
+  "type": "summon",
+  "skill": "vex_barrage",
+  "tribe": "void"
+}

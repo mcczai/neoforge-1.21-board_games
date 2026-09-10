@@ -1,0 +1,9 @@
+{
+  "hp": 4,
+  "mp": 2,
+  "atk": 1,
+  "description": "default_card.card.cactus.description",
+  "type": "trap",
+  "skill": "cactus_thorns",
+  "tribe": "nature"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "default_card.card.tnt.name",
+  "data": "default_pack:tnt_data",
+  "stack_size": 1,
+  "tooltip": "default_card.card.tnt.tooltip",
+  "type": "trap",
+  "texture": "default_pack:tnt"
+}

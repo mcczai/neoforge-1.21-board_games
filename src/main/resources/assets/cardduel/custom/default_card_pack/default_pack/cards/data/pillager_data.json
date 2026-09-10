@@ -1,0 +1,9 @@
+{
+  "hp": 1,
+  "mp": 2,
+  "atk": 2,
+  "description": "default_card.card.pillager.description",
+  "type": "summon",
+  "skill": "pillager_shot",
+  "tribe": "nature"
+}
